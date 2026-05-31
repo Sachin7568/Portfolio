@@ -1,4 +1,4 @@
-# 🚀 Sachin Kumar — Personal Portfolio
+# 🚀 Sachin — Personal Portfolio
 
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.2.6-blue?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
