@@ -10,7 +10,7 @@ A modern, high-performance, and responsive single-page developer portfolio websi
 
 Designed to showcase academic milestones, key technical capabilities, certs, and software engineering projects with smooth animations and layout transitions.
 
-⭐ **Live Preview**: `https://sachin-portfolio.vercel.app` (Or run locally!)
+⭐ **Live Preview**: `portfolio-orpin-psi-13.vercel.app` (Or run locally!)
 
 ---
 
