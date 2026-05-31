@@ -17,8 +17,8 @@ export const education: Education[] = [
     icon: "GraduationCap",
     color: "primary",
     gradeLabel: "CGPA",
-    gradeValue: "7.42",
-    dates: "2021 - 2025",
+    gradeValue: "7.48",
+    dates: "2022 - 2026",
   },
   {
     id: "senior-secondary",
@@ -28,7 +28,7 @@ export const education: Education[] = [
     color: "tertiary",
     gradeLabel: "Score",
     gradeValue: "72%",
-    dates: "2019 - 2021",
+    dates: "2020 - 2021",
   },
   {
     id: "secondary",
@@ -38,6 +38,6 @@ export const education: Education[] = [
     color: "secondary",
     gradeLabel: "Score",
     gradeValue: "85%",
-    dates: "2017 - 2019",
+    dates: "2018 - 2019",
   },
 ];
