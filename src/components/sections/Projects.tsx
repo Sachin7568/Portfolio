@@ -175,9 +175,9 @@ export function Projects() {
       {/* Learning Journey Timeline */}
       <AnimatedSection delay={0.1}>
         <div className="mb-16 overflow-x-auto pb-4 hide-scrollbar">
-          <div className="min-w-[800px] flex justify-between items-center relative px-8">
+          <div className="min-w-[800px] flex justify-between items-start relative px-8">
             {/* Connecting Line */}
-            <div className="absolute left-8 right-8 top-1/2 h-1 bg-surface-container-high -translate-y-1/2 z-0" />
+            <div className="absolute left-8 right-8 top-8 h-1 bg-surface-container-high -translate-y-1/2 z-0" />
 
             {/* Milestones */}
             {[...projects].reverse().map((project) => {
@@ -201,8 +201,12 @@ export function Projects() {
                   </div>
                   <span className="font-body text-sm text-center whitespace-nowrap font-semibold text-on-surface-variant transition-colors">
                     {project.title.split(" ").slice(0, 2).join(" ")}
-                    <br />
-                    {project.title.split(" ").slice(2).join(" ") || ""}
+                    {project.title.split(" ").slice(2).join(" ") && (
+                      <>
+                        <br />
+                        {project.title.split(" ").slice(2).join(" ")}
+                      </>
+                    )}
                   </span>
                 </div>
               );
