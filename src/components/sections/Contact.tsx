@@ -225,7 +225,7 @@ export function Contact() {
                 {/* Error banner */}
                 {status === "error" && (
                   <div className="p-4 rounded-xl bg-error-container text-on-error-container text-sm flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                    <AlertCircle className="w-4 h-4 shrink-0" />
                     Something went wrong. Please try again or email me directly.
                   </div>
                 )}
@@ -234,7 +234,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-primary text-on-primary font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:bg-[#003ea8] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-primary text-on-primary font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:bg-on-primary-fixed-variant hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
                   {status === "loading" ? (
                     <>

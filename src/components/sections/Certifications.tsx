@@ -57,7 +57,7 @@ export function Certifications() {
               <div className="group flex items-start gap-4 p-6 rounded-2xl glass dark:bg-zinc-900/60 border border-outline-variant/30 transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] hover:-translate-y-1 h-full">
                 <div
                   className={cn(
-                    "flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl",
+                    "shrink-0 w-12 h-12 flex items-center justify-center rounded-xl",
                     colors.iconBg
                   )}
                 >

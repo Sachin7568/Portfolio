@@ -72,7 +72,7 @@ function ProjectModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+      className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
       onClick={onClose}
       role="dialog"
       aria-label={`${project.title} details`}
@@ -133,7 +133,7 @@ function ProjectModal({
           <ul className="space-y-3 mb-4">
             {project.highlights.map((highlight, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant">
-                <CheckCircle className={cn("w-4 h-4 mt-0.5 flex-shrink-0", colors.checkColor)} />
+                <CheckCircle className={cn("w-4 h-4 mt-0.5 shrink-0", colors.checkColor)} />
                 {highlight}
               </li>
             ))}
@@ -215,7 +215,7 @@ export function Projects() {
                 >
                   <div
                     className={cn(
-                      "w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center bg-surface-container-lowest border-4 border-surface-container-high group-hover:scale-110 transition-all duration-300 shadow-sm",
+                      "w-16 h-16 rounded-full shrink-0 flex items-center justify-center bg-surface-container-lowest border-4 border-surface-container-high group-hover:scale-110 transition-all duration-300 shadow-sm",
                       colors.milestoneHover
                     )}
                   >
@@ -243,7 +243,7 @@ export function Projects() {
       <AnimatedSection delay={0.2}>
         <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-12">
           {/* Search - put in front, expands compact (w-48), and no border highlight */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <div
               className={cn(
                 "relative h-10 rounded-full bg-surface-container-low border border-outline-variant/30 flex items-center shadow-sm cursor-pointer transition-all duration-700 ease-in-out focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
@@ -376,7 +376,7 @@ export function Projects() {
                         <li key={i} className="flex items-start gap-2">
                           <CheckCircle
                             className={cn(
-                              "w-4 h-4 mt-0.5 flex-shrink-0",
+                              "w-4 h-4 mt-0.5 shrink-0",
                               colors.checkColor
                             )}
                           />

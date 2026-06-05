@@ -64,7 +64,7 @@ export function Hero() {
       </div>
 
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90 z-0" />
+      <div className="absolute inset-0 bg-linear-to-b from-transparent to-background/90 z-0" />
 
       <motion.div
         className="max-w-4xl space-y-10 relative z-10"
@@ -86,10 +86,10 @@ export function Hero() {
         {/* Heading */}
         <motion.h1
           variants={itemVariants}
-          className="font-headline text-[48px] md:text-[64px] lg:text-[72px] font-[800] tracking-tight leading-[1.1]"
+          className="font-headline text-[48px] md:text-[64px] lg:text-[72px] font-extrabold tracking-tight leading-[1.1]"
         >
           <span className="text-on-surface">Engineering</span>{" "}
-          <span className="relative inline-block bg-gradient-to-r from-primary via-tertiary to-secondary bg-clip-text text-transparent pb-2">
+          <span className="relative inline-block bg-linear-to-r from-primary via-tertiary to-secondary bg-clip-text text-transparent pb-2">
             Practical
             <svg
               className="absolute w-full h-3 -bottom-1 left-0 text-primary opacity-40"
@@ -128,7 +128,7 @@ export function Hero() {
               e.preventDefault();
               document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-secondary text-white font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-all duration-300"
+            className="inline-flex items-center justify-center gap-2 bg-linear-to-r from-primary to-secondary text-white font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-all duration-300"
           >
             View My Work
             <ArrowRight className="w-5 h-5" />
