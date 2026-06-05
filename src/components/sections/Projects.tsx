@@ -14,6 +14,10 @@ import {
   Crown,
   Sun,
   Coins,
+  Box,
+  Users,
+  StickyNote,
+  Briefcase
 } from "lucide-react";
 import { Github } from "@/components/ui/Icons";
 import { cn } from "@/lib/utils";
@@ -23,6 +27,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Crown,
   Sun,
   Coins,
+  Box,
+  Users,
+  StickyNote,
+  Briefcase,
 };
 
 const colorMap = {
@@ -130,6 +138,22 @@ function ProjectModal({
               </li>
             ))}
           </ul>
+
+          {/* Links */}
+          {(project.github || project.demo) && (
+            <div className="flex gap-4 mt-8 pt-6 border-t border-outline-variant/30">
+              {project.github && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-semibold text-sm rounded-xl transition-colors">
+                  <Github className="w-4 h-4" /> View Source
+                </a>
+              )}
+              {project.demo && (
+                <a href={project.demo} target="_blank" rel="noopener noreferrer" className={cn("flex items-center gap-2 px-4 py-2 text-on-primary font-semibold text-sm rounded-xl transition-colors shadow-sm", colors.barBg.split(" ")[0], "hover:opacity-90")}>
+                  <ExternalLink className="w-4 h-4" /> Live Demo
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </motion.div>
     </motion.div>
@@ -360,6 +384,22 @@ export function Projects() {
                         </li>
                       ))}
                     </ul>
+
+                    {/* Links */}
+                    {(project.github || project.demo) && (
+                      <div className="flex gap-4 mt-auto pt-4 border-t border-outline-variant/30" onClick={(e) => e.stopPropagation()}>
+                        {project.github && (
+                          <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-colors">
+                            <Github className="w-4 h-4" /> Code
+                          </a>
+                        )}
+                        {project.demo && (
+                          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-colors">
+                            <ExternalLink className="w-4 h-4" /> Live
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </motion.div>

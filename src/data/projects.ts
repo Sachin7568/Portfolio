@@ -15,87 +15,81 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "java-snake-game",
-    title: "Java Snake Game",
-    description:
-      "A classic Snake game implementation focusing on object-oriented programming principles and state management.",
-    longDescription:
-      "A fully functional Snake game built using Java Swing framework. The project demonstrates core OOP concepts including encapsulation, inheritance, and polymorphism. Features include a responsive game loop, collision detection, score tracking with high score persistence, and smooth rendering using double buffering techniques.",
-    technologies: ["Java", "Swing", "Game Dev"],
-    github: "#",
-    demo: "#",
+    id: "inventory-management",
+    title: "Inventory & Order Management",
+    description: "Full-stack, containerized system with dashboard, low stock alerts, and order management.",
+    longDescription: "Built a full-stack, containerized system using FastAPI (Python) backend, React (TypeScript + Vite) frontend, and PostgreSQL database. Implemented CRUD for Products (SKUs, stock tracking), Customers, and Orders (auto total calculation & dynamic stock reduction). Designed an analytics dashboard with low stock alerts; containerized with Docker Compose for one-command deployment.",
+    technologies: ["FastAPI", "React", "TypeScript", "PostgreSQL", "Docker"],
+    github: "https://github.com/Sachin7568/Inventory-Order-Management-System",
+    demo: "https://inventory-order-management-system-rho.vercel.app/",
     featured: true,
     year: 2026,
-    icon: "Gamepad2",
+    icon: "Box",
     color: "primary",
     highlights: [
-      "Implemented game loop and collision detection",
-      "Score tracking and high score persistence",
-      "Smooth rendering with double buffering",
-      "Responsive keyboard controls",
+      "Containerized with Docker Compose",
+      "FastAPI backend & React TS frontend",
+      "Dynamic stock reduction & order totals",
+      "Analytics dashboard with low stock alerts"
     ],
   },
   {
-    id: "chess-game",
-    title: "Chess Game",
-    description:
-      "A fully functional terminal-based chess game demonstrating complex logic and data structures.",
-    longDescription:
-      "A comprehensive chess game implemented in C++ that supports all standard chess rules including castling, en passant, and pawn promotion. The game features a terminal-based UI with Unicode chess piece rendering, valid move generation for all piece types, and check/checkmate detection algorithms.",
-    technologies: ["C++", "OOP", "Algorithms"],
-    github: "#",
-    demo: "#",
+    id: "employee-management",
+    title: "Employee Management System",
+    description: "Responsive SPA for managing employee data with real-time search and floating modals.",
+    longDescription: "Developed a responsive SPA for managing employee data with full CRUD, floating modals, and dynamic avatars. Added real-time search & filter (by Name, Role, Email), sorting, and localStorage-based data persistence.",
+    technologies: ["React", "Vite", "Tailwind CSS"],
+    github: "https://github.com/Sachin7568/Employee-Management-System",
+    demo: "https://employee-management-system-psi-gray.vercel.app/",
     featured: true,
     year: 2025,
-    icon: "Crown",
+    icon: "Users",
     color: "tertiary",
     highlights: [
-      "Valid move generation for all piece types",
-      "Check and checkmate detection algorithms",
-      "Support for castling and en passant",
-      "Unicode-based terminal rendering",
+      "Full CRUD with floating modals",
+      "Real-time search & filter functionality",
+      "Dynamic avatars generation",
+      "localStorage-based data persistence"
     ],
   },
   {
-    id: "moving-solar-panel",
-    title: "Moving Solar Panel System",
-    description:
-      "A hardware-software integration project designing a solar panel system that tracks light for optimal energy capture.",
-    longDescription:
-      "An innovative IoT-based solar panel tracking system that automatically adjusts panel orientation based on sunlight direction. The project combines hardware sensors (LDR, servo motors) with software algorithms to maximize energy capture efficiency. Includes real-time monitoring and data logging capabilities.",
-    technologies: ["Hardware", "IoT", "Sensors"],
-    github: "#",
+    id: "notes-app",
+    title: "Notes App",
+    description: "Clean, responsive notes application with add, view, and delete functionality.",
+    longDescription: "Built a clean, responsive notes application with add, view, and delete functionality using component-based architecture. Utilized React state management and reusable components to efficiently handle note operations and maintain a smooth user interface.",
+    technologies: ["React", "Tailwind CSS"],
+    github: "https://github.com/Sachin7568/notes-app-project",
+    demo: "https://notes-app-project-zeta.vercel.app/",
     featured: true,
     year: 2024,
-    icon: "Sun",
+    icon: "StickyNote",
     color: "secondary",
     highlights: [
-      "Light tracking algorithm implementation",
-      "Improved energy efficiency metrics",
-      "Real-time monitoring dashboard",
-      "Sensor calibration and optimization",
+      "Component-based architecture",
+      "React state management",
+      "Responsive UI with Tailwind",
+      "Add, view, and delete notes"
     ],
   },
   {
-    id: "blockchain-fundamentals",
-    title: "Blockchain Fundamentals Project",
-    description:
-      "A foundational exploration into blockchain technology, demonstrating core concepts of decentralized ledgers.",
-    longDescription:
-      "An educational project that implements core blockchain concepts from scratch. Features include block creation with SHA-256 hashing, proof-of-work consensus mechanism, transaction validation, and a simulated peer-to-peer network. The project serves as a comprehensive learning tool for understanding distributed ledger technology.",
-    technologies: ["Blockchain", "Cryptography", "Web3"],
-    github: "#",
+    id: "job-card",
+    title: "Job Card Project",
+    description: "Data-driven UI showcasing job openings using reusable React components.",
+    longDescription: "Designed a data-driven UI showcasing job openings using reusable React components with Lucide icons and modern styling. Enhanced user experience with responsive layouts and interactive card designs optimized for both desktop and mobile devices.",
+    technologies: ["React", "Lucide Icons", "Tailwind CSS"],
+    github: "https://github.com/Sachin7568/card-project",
+    demo: "https://card-project-sigma-three.vercel.app/",
     featured: true,
     year: 2023,
-    icon: "Coins",
+    icon: "Briefcase",
     color: "primary",
     highlights: [
-      "Basic block creation and hashing",
-      "Proof of concept network simulation",
-      "Transaction validation system",
-      "SHA-256 cryptographic hashing",
+      "Data-driven interactive UI",
+      "Reusable React components",
+      "Integration with Lucide icons",
+      "Optimized for desktop and mobile"
     ],
-  },
+  }
 ];
 
 export const allTechnologies = Array.from(

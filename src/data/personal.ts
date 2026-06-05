@@ -3,12 +3,12 @@ export const personal = {
   role: "Computer Science Engineer",
   location: "Haryana, India",
   email: "sachinvr10094@gmail.com",
-  tagline: "Engineering Practical Software Solutions",
+  tagline: "Computer Science Engineering graduate skilled in full-stack web development",
   description:
-    "A passionate Computer Science Engineering graduate specializing in ReactJS, JavaScript, C++, and Modern Web Development. Turning complex problems into elegant, scalable code.",
+    "Computer Science Engineering graduate skilled in ReactJS, JavaScript, Python, C++, MySQL, and full-stack web development. Eager to contribute to innovative software projects while continuously learning and growing as a developer.",
   about: [
-    "I am a dedicated Computer Science Engineering graduate with a strong foundation in core computer science principles and modern web technologies. My academic journey has equipped me with rigorous problem-solving skills and a deep understanding of Data Structures and Algorithms.",
-    "I specialize in building responsive, user-centric web applications using ReactJS and JavaScript, while maintaining robust backend knowledge with MySQL and DBMS. I am passionate about writing clean, efficient code and continuously learning new technologies to build practical, scalable software solutions.",
+    "I am a dedicated Computer Science Engineering graduate with a strong foundation in core computer science principles including DSA, DBMS, OOP, and operating systems.",
+    "I specialize in building full-stack web applications using technologies like ReactJS, Python (FastAPI), C++, and MySQL. With hands-on experience using Git, GitHub, and Docker, I am well-equipped for collaborative development and passionate about creating scalable software solutions.",
   ],
   social: {
     github: "https://github.com/Sachin7568",
