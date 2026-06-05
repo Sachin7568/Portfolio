@@ -17,7 +17,7 @@ export function About() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.2}>
-          <div className="font-body text-lg text-on-surface-variant space-y-6 text-center bg-surface-container-lowest p-8 md:p-12 rounded-3xl border border-outline-variant/50 ambient-shadow">
+          <div className="font-body text-lg text-on-surface-variant space-y-6 text-center glass dark:bg-zinc-900/60 p-8 md:p-12 rounded-3xl border border-outline-variant/30">
             {personal.about.map((paragraph, i) => (
               <p key={i} className="leading-relaxed">
                 {paragraph}

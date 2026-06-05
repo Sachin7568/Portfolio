@@ -72,7 +72,7 @@ function ProjectModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
       onClick={onClose}
       role="dialog"
       aria-label={`${project.title} details`}
@@ -84,7 +84,7 @@ function ProjectModal({
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
-        className="bg-surface-container-lowest rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl border border-outline-variant/50"
+        className="glass dark:bg-zinc-950/80 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-outline-variant/30"
       >
         {/* Header bar */}
         <div className={cn("h-2 rounded-t-2xl", colors.barBg.split(" ")[0])} />
@@ -312,7 +312,7 @@ export function Projects() {
                 transition={{ duration: 0.3, delay: index * 0.05 }}
               >
                 <div
-                  className="project-card bg-surface-container-lowest border border-outline-variant/50 rounded-2xl overflow-hidden flex flex-col ambient-shadow group transition-all duration-300 cursor-pointer h-full"
+                  className="project-card glass dark:bg-zinc-900/60 border border-outline-variant/30 rounded-2xl overflow-hidden flex flex-col group transition-all duration-500 cursor-pointer h-full hover:-translate-y-2"
                   onClick={() => setSelectedProject(project)}
                   role="button"
                   tabIndex={0}

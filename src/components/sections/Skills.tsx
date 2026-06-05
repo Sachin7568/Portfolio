@@ -100,7 +100,7 @@ export function Skills() {
             <AnimatedSection key={category.id} delay={catIndex * 0.1}>
               <div
                 className={cn(
-                  "bg-surface-container-lowest border border-outline-variant/50 rounded-2xl p-10 ambient-shadow transition-colors h-full",
+                  "glass dark:bg-zinc-900/60 border border-outline-variant/30 rounded-2xl p-10 transition-all duration-500 hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] h-full",
                   colors.hoverBorder
                 )}
               >

@@ -28,8 +28,8 @@ export function Navbar() {
   };
 
   return (
-    <nav className="hidden md:block sticky top-0 z-50 border-b border-outline-variant dark:border-outline bg-surface/90 backdrop-blur-sm transition-all duration-300">
-      <div className="flex justify-between items-center px-6 py-6 max-w-[1200px] mx-auto">
+    <nav className="hidden md:block sticky top-0 z-50 border-b border-outline-variant/50 glass transition-all duration-500">
+      <div className="flex justify-between items-center px-6 py-5 max-w-[1200px] mx-auto">
         <a
           href="#"
           onClick={(e) => {

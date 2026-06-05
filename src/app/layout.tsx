@@ -128,7 +128,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-background text-on-background font-body antialiased">
+      <body className="bg-background text-on-background font-body antialiased transition-colors duration-500">
         <ThemeProvider>
           {/* Skip to content — accessibility */}
           <a href="#main-content" className="skip-to-content">

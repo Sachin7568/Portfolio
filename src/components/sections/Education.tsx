@@ -49,7 +49,7 @@ export function Education() {
 
             return (
               <AnimatedSection key={edu.id} delay={index * 0.15}>
-                <div className="bg-surface-container-lowest border border-outline-variant/50 rounded-2xl p-10 ambient-shadow relative overflow-hidden group h-full">
+                <div className="glass dark:bg-zinc-900/60 border border-outline-variant/30 rounded-2xl p-10 relative overflow-hidden group h-full hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] transition-all duration-500">
                   {/* Decorative corner */}
                   <div
                     className={cn(

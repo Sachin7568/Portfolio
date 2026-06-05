@@ -54,7 +54,7 @@ export function Certifications() {
 
           return (
             <AnimatedSection key={cert.id} delay={index * 0.1}>
-              <div className="group flex items-start gap-4 p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/50 ambient-shadow transition-all duration-300 hover:border-primary/30 h-full">
+              <div className="group flex items-start gap-4 p-6 rounded-2xl glass dark:bg-zinc-900/60 border border-outline-variant/30 transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] hover:-translate-y-1 h-full">
                 <div
                   className={cn(
                     "flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl",

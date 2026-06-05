@@ -101,7 +101,7 @@ export function Contact() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.2}>
-          <div className="bg-surface-container-lowest p-8 md:p-12 rounded-3xl border border-outline-variant/50 ambient-shadow">
+          <div className="glass dark:bg-zinc-900/60 p-8 md:p-12 rounded-3xl border border-outline-variant/30">
             {status === "success" ? (
               <div className="text-center py-8">
                 <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
