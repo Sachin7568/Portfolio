@@ -54,42 +54,59 @@ export function Certifications() {
 
           return (
             <AnimatedSection key={cert.id} delay={index * 0.1}>
-              <div className="group flex items-start gap-4 p-6 rounded-2xl glass dark:bg-zinc-900/60 border border-outline-variant/30 transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] hover:-translate-y-1 h-full">
-                <div
-                  className={cn(
-                    "shrink-0 w-12 h-12 flex items-center justify-center rounded-xl",
-                    colors.iconBg
-                  )}
-                >
-                  <Icon className="w-6 h-6" />
-                </div>
+              {(() => {
+                const isClickable = cert.credentialUrl && cert.credentialUrl !== "#";
+                const CardWrapper = isClickable ? "a" : "div";
+                const wrapperProps = isClickable
+                  ? {
+                      href: cert.credentialUrl,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    }
+                  : {};
 
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-headline text-lg font-semibold text-on-surface mb-1">
-                    {cert.title}
-                  </h4>
-                  <p className="text-sm text-on-surface-variant mb-1">
-                    {cert.issuer}
-                  </p>
-                  {cert.date && (
-                    <p className="text-xs text-on-surface-variant/70 mb-3">
-                      {cert.date}
-                    </p>
-                  )}
+                return (
+                  // @ts-expect-error dynamic wrapper type mismatch is fine here
+                  <CardWrapper
+                    {...wrapperProps}
+                    className="group block p-6 rounded-3xl glass dark:bg-zinc-900/40 border border-outline-variant/30 transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.15)] hover:-translate-y-2 h-full relative overflow-hidden"
+                  >
+                    {/* Subtle hover gradient background */}
+                    <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                  {cert.credentialUrl && cert.credentialUrl !== "#" && (
-                    <a
-                      href={cert.credentialUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary-container transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                    >
-                      Verify Certificate
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
-              </div>
+                    <div className="flex items-start gap-5 relative z-10">
+                      <div
+                        className={cn(
+                          "shrink-0 w-14 h-14 flex items-center justify-center rounded-2xl transition-transform duration-500 group-hover:scale-110",
+                          colors.iconBg
+                        )}
+                      >
+                        <Icon className="w-7 h-7 drop-shadow-sm" />
+                      </div>
+
+                      <div className="flex-1 min-w-0 pt-1">
+                        <h4 className="font-headline text-lg font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">
+                          {cert.title}
+                        </h4>
+                        <p className="font-body text-sm font-medium text-on-surface-variant mb-1">
+                          {cert.issuer}
+                        </p>
+                        {cert.date && (
+                          <p className="text-xs text-on-surface-variant/50 font-medium tracking-wide uppercase">
+                            {cert.date}
+                          </p>
+                        )}
+                      </div>
+
+                      {isClickable && (
+                        <div className="shrink-0 text-outline-variant group-hover:text-primary transition-all duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1">
+                          <ExternalLink className="w-5 h-5" />
+                        </div>
+                      )}
+                    </div>
+                  </CardWrapper>
+                );
+              })()}
             </AnimatedSection>
           );
         })}
