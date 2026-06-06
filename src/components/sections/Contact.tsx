@@ -58,8 +58,7 @@ export function Contact() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          // NOTE: Replace this with your actual Web3Forms access key
-          access_key: "YOUR_WEB3FORMS_ACCESS_KEY_HERE",
+          access_key: "97b13b11-1842-46c0-9c47-f949802b2321",
           ...formData,
         }),
       });
