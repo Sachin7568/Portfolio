@@ -210,34 +210,35 @@ export function Projects() {
               const colors = colorMap[project.color];
 
               return (
-                <div
+                <Tilt3D
                   key={project.id}
-                  className="relative z-10 flex flex-col items-center gap-4 group cursor-pointer"
-                  onClick={() => setSelectedProject(project)}
+                  tiltMaxAngleX={10} tiltMaxAngleY={10} scale={1.08} className="relative z-10 shrink-0 group cursor-pointer"
                 >
-                  <Tilt3D tiltMaxAngleX={10} tiltMaxAngleY={10} scale={1.2} className="w-16 h-16 shrink-0 z-10 relative group">
-                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:bg-primary/50 transition-colors duration-500 opacity-0 group-hover:opacity-100" />
-                    <div
-                      className={cn(
-                        "relative w-full h-full rounded-full shrink-0 flex items-center justify-center glass dark:bg-zinc-900/90 border-[3px] border-surface-container-highest group-hover:border-primary/70 shadow-[0_4px_15px_rgba(0,0,0,0.1)] group-hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] transition-all duration-500",
-                        colors.milestoneHover
-                      )}
-                    >
-                      <span className="font-body text-sm font-extrabold tracking-wide text-on-surface-variant group-hover:text-primary transition-colors duration-500">
-                        {project.year}
-                      </span>
+                  <div onClick={() => setSelectedProject(project)} className="flex flex-col items-center gap-4">
+                    <div className="w-16 h-16 shrink-0 z-10 relative">
+                      <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:bg-primary/50 transition-colors duration-500 opacity-0 group-hover:opacity-100" />
+                      <div
+                        className={cn(
+                          "relative w-full h-full rounded-full shrink-0 flex items-center justify-center glass dark:bg-zinc-900/90 border-[3px] border-surface-container-highest group-hover:border-primary/70 shadow-[0_4px_15px_rgba(0,0,0,0.1)] group-hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] transition-all duration-500",
+                          colors.milestoneHover
+                        )}
+                      >
+                        <span className="font-body text-sm font-extrabold tracking-wide text-on-surface-variant group-hover:text-primary transition-colors duration-500">
+                          {project.year}
+                        </span>
+                      </div>
                     </div>
-                  </Tilt3D>
-                  <span className="font-body text-sm text-center whitespace-nowrap font-semibold text-on-surface-variant transition-colors">
-                    {project.title.split(" ").slice(0, 2).join(" ")}
-                    {project.title.split(" ").slice(2).join(" ") && (
-                      <>
-                        <br />
-                        {project.title.split(" ").slice(2).join(" ")}
-                      </>
-                    )}
-                  </span>
-                </div>
+                    <span className="font-body text-sm text-center whitespace-nowrap font-semibold text-on-surface-variant transition-colors duration-500 group-hover:text-primary">
+                      {project.title.split(" ").slice(0, 2).join(" ")}
+                      {project.title.split(" ").slice(2).join(" ") && (
+                        <>
+                          <br />
+                          {project.title.split(" ").slice(2).join(" ")}
+                        </>
+                      )}
+                    </span>
+                  </div>
+                </Tilt3D>
               );
             })}
           </div>

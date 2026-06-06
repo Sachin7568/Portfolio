@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { education } from "@/data/education";
 import { GraduationCap, BookOpen, PenTool } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Tilt3D } from "@/components/ui/Tilt3D";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   GraduationCap,
@@ -49,49 +50,51 @@ export function Education() {
 
             return (
               <AnimatedSection key={edu.id} delay={index * 0.15}>
-                <div className="glass dark:bg-zinc-900/60 border border-outline-variant/30 rounded-2xl p-10 relative overflow-hidden group h-full hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] transition-all duration-500">
-                  {/* Decorative corner */}
-                  <div
-                    className={cn(
-                      "absolute top-0 right-0 w-32 h-32 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500",
-                      colors.decorBg
-                    )}
-                  />
+                <Tilt3D tiltMaxAngleX={4} tiltMaxAngleY={4} scale={1.02} className="h-full">
+                  <div className="glass dark:bg-zinc-900/60 border border-outline-variant/30 rounded-2xl p-10 relative overflow-hidden group h-full hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] transition-all duration-500">
+                    {/* Decorative corner */}
+                    <div
+                      className={cn(
+                        "absolute top-0 right-0 w-32 h-32 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500",
+                        colors.decorBg
+                      )}
+                    />
 
-                  {/* Icon */}
-                  <div
-                    className={cn(
-                      "flex items-center justify-center w-14 h-14 rounded-xl mb-6 relative z-10",
-                      colors.iconBg
-                    )}
-                  >
-                    <Icon className="w-8 h-8" />
-                  </div>
+                    {/* Icon */}
+                    <div
+                      className={cn(
+                        "flex items-center justify-center w-14 h-14 rounded-xl mb-6 relative z-10",
+                        colors.iconBg
+                      )}
+                    >
+                      <Icon className="w-8 h-8" />
+                    </div>
 
-                  {/* Content */}
-                  <h3 className="font-headline text-2xl font-semibold text-on-surface mb-2 relative z-10">
-                    {edu.title}
-                  </h3>
-                  <p
-                    className={cn(
-                      "font-body text-base font-semibold mb-4 relative z-10",
-                      colors.textColor
-                    )}
-                  >
-                    {edu.institution}
-                  </p>
-
-                  {edu.dates && (
-                    <p className="text-sm text-on-surface-variant mb-4 relative z-10">
-                      {edu.dates}
+                    {/* Content */}
+                    <h3 className="font-headline text-2xl font-semibold text-on-surface mb-2 relative z-10">
+                      {edu.title}
+                    </h3>
+                    <p
+                      className={cn(
+                        "font-body text-base font-semibold mb-4 relative z-10",
+                        colors.textColor
+                      )}
+                    >
+                      {edu.institution}
                     </p>
-                  )}
 
-                  <div className="inline-block bg-surface-container-high px-4 py-2 rounded-lg font-body text-sm font-semibold tracking-[0.02em] text-on-surface relative z-10">
-                    {edu.gradeLabel}:{" "}
-                    <span className="font-bold">{edu.gradeValue}</span>
+                    {edu.dates && (
+                      <p className="text-sm text-on-surface-variant mb-4 relative z-10">
+                        {edu.dates}
+                      </p>
+                    )}
+
+                    <div className="inline-block bg-surface-container-high px-4 py-2 rounded-lg font-body text-sm font-semibold tracking-[0.02em] text-on-surface relative z-10">
+                      {edu.gradeLabel}:{" "}
+                      <span className="font-bold">{edu.gradeValue}</span>
+                    </div>
                   </div>
-                </div>
+                </Tilt3D>
               </AnimatedSection>
             );
           })}
