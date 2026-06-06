@@ -26,7 +26,7 @@ export function About() {
           <AnimatedSection delay={0.2} className="h-full">
             <Tilt3D tiltMaxAngleX={5} tiltMaxAngleY={5} depth={30} className="h-full">
               <div className="h-full font-body text-lg text-on-surface-variant space-y-6 glass dark:bg-zinc-900/40 p-10 md:p-14 rounded-[2.5rem] border border-outline-variant/30 shadow-xl relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                 
                 <h3 className="font-headline text-2xl font-bold text-on-surface mb-6 group-hover:text-primary transition-colors duration-500 relative z-10">
                   Who am I?
@@ -50,7 +50,7 @@ export function About() {
                 { icon: Layers, title: "Tools", desc: "Git, Docker, Figma", color: "text-primary", bg: "bg-primary/10", border: "hover:border-primary/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.15)]" },
               ].map((item, i) => (
                 <Tilt3D key={i} tiltMaxAngleX={15} tiltMaxAngleY={15} scale={1.05} depth={20} className="h-full">
-                  <div className={`h-full glass dark:bg-zinc-900/40 p-6 md:p-8 rounded-[2rem] border border-outline-variant/30 flex flex-col items-center justify-center text-center group transition-all duration-500 ${item.border}`}>
+                  <div className={`h-full glass dark:bg-zinc-900/40 p-6 md:p-8 rounded-4xl border border-outline-variant/30 flex flex-col items-center justify-center text-center group transition-all duration-500 ${item.border}`}>
                     <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-2 ${item.bg} ${item.color}`}>
                       <item.icon className="w-8 h-8 drop-shadow-sm" />
                     </div>

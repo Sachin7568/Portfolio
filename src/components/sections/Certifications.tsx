@@ -68,7 +68,6 @@ export function Certifications() {
 
                 return (
                   <Tilt3D tiltMaxAngleX={8} tiltMaxAngleY={8} scale={1.03} className="h-full">
-                    // @ts-expect-error dynamic wrapper type mismatch is fine here
                     <CardWrapper
                       {...wrapperProps}
                       className="group block p-6 rounded-3xl glass dark:bg-zinc-900/40 border border-outline-variant/30 transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.15)] hover:-translate-y-2 h-full relative overflow-hidden"

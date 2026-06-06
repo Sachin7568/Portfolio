@@ -5,6 +5,7 @@ import { ArrowRight, Mail } from "lucide-react";
 import { Github, Linkedin } from "@/components/ui/Icons";
 import { personal } from "@/data/personal";
 import { cn } from "@/lib/utils";
+import { FloatingShapes } from "@/components/ui/FloatingShapes";
 
 const floatingElements = [
   { size: 350, x: "-10%", y: "-10%", delay: 0, duration: 8, color: "bg-primary/20 dark:bg-primary/10" },
@@ -36,6 +37,9 @@ export function Hero() {
       className="py-16 md:py-32 flex flex-col items-center justify-center text-center gap-16 border-b border-outline-variant/50 relative overflow-hidden hero-bg"
       aria-label="Hero section"
     >
+      {/* 3D Floating Shapes */}
+      <FloatingShapes />
+      
       {/* Premium Gradient Orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {floatingElements.map((el, i) => (

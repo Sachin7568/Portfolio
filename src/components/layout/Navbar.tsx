@@ -16,8 +16,20 @@ const sectionIds = ["about", "education", "skills", "certifications", "projects"
 
 
 
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
 export function Navbar() {
   const activeSection = useActiveSection(sectionIds);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -28,8 +40,20 @@ export function Navbar() {
   };
 
   return (
-    <nav className="hidden md:block sticky top-0 z-50 border-b border-outline-variant/50 glass transition-all duration-500">
-      <div className="flex justify-between items-center px-6 py-5 max-w-[1200px] mx-auto">
+    <motion.nav 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={cn(
+        "hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-500 pointer-events-none",
+        isScrolled ? "py-4" : "py-6"
+      )}
+    >
+      <div className={cn(
+        "mx-auto transition-all duration-500 flex justify-between items-center pointer-events-auto",
+        isScrolled 
+          ? "max-w-4xl glass dark:bg-zinc-900/70 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-full px-8 py-3 border border-outline-variant/30 backdrop-blur-xl" 
+          : "max-w-6xl px-6 py-2"
+      )}>
         <a
           href="#"
           onClick={(e) => {
@@ -61,6 +85,6 @@ export function Navbar() {
 
         <ThemeToggle />
       </div>
-    </nav>
+    </motion.nav>
   );
 }
