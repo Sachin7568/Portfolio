@@ -45,7 +45,7 @@ export function Skills() {
 
         <AnimatedSection delay={0.2}>
           <div className="flex justify-center mb-16 px-2 sm:px-4">
-            <div className="flex gap-1 sm:gap-2 p-1.5 bg-[var(--bg-1)] backdrop-blur-md rounded-full border border-[var(--b1)] shadow-sm w-full max-w-[340px] sm:max-w-[420px]">
+            <div className="flex gap-1 sm:gap-2 p-1 sm:p-1.5 bg-[var(--bg-1)] backdrop-blur-md rounded-full border border-[var(--b1)] shadow-sm">
               {skillCategories.map((category) => {
                 const isActive = activeTab === category.id;
                 const Icon = iconMap[category.icon] || Code;
@@ -55,8 +55,8 @@ export function Skills() {
                     key={category.id}
                     onClick={() => setActiveTab(category.id)}
                     className={cn(
-                      "relative rounded-full text-sm font-body font-semibold transition-all duration-300 whitespace-nowrap group flex items-center justify-center",
-                      isActive ? "h-10 flex-1 text-[var(--bg)]" : "h-10 w-10 shrink-0 text-[var(--t2)] hover:text-[var(--t1)] hover:bg-[var(--bg-2)]"
+                      "relative rounded-full text-[11px] sm:text-sm font-body font-semibold transition-all duration-300 whitespace-nowrap group flex items-center justify-center min-w-0 overflow-hidden",
+                      isActive ? "h-9 sm:h-10 w-[160px] sm:w-[200px] px-3 sm:px-4 text-[var(--bg)]" : "h-9 sm:h-10 w-9 sm:w-10 shrink-0 text-[var(--t2)] hover:text-[var(--t1)] hover:bg-[var(--bg-2)]"
                     )}
                     aria-label={category.title}
                     title={category.title}
@@ -68,12 +68,12 @@ export function Skills() {
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                     )}
-                    <div className="relative z-10 flex items-center">
-                      <Icon className={cn("shrink-0 transition-transform duration-300", isActive ? "w-4 h-4 scale-110" : "w-5 h-5 group-hover:scale-110")} />
+                    <div className="relative z-10 flex items-center min-w-0 justify-center">
+                      <Icon className={cn("shrink-0 transition-transform duration-300", isActive ? "w-3.5 h-3.5 sm:w-4 sm:h-4 scale-110" : "w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110")} />
                       <span 
                         className={cn(
-                          "overflow-hidden transition-all duration-300 ease-in-out",
-                          isActive ? "max-w-[200px] opacity-100 ml-2" : "max-w-0 opacity-0 ml-0"
+                          "transition-all duration-300 ease-in-out truncate",
+                          isActive ? "max-w-[150px] sm:max-w-[200px] opacity-100 ml-1.5 sm:ml-2" : "max-w-0 opacity-0 ml-0"
                         )}
                       >
                         {category.title}
