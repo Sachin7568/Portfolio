@@ -143,12 +143,12 @@ function ProjectModal({
           {(project.github || project.demo) && (
             <div className="flex gap-4 mt-8 pt-6 border-t border-outline-variant/30">
               {project.github && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-semibold text-sm rounded-xl transition-colors">
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 glass dark:bg-zinc-800/50 hover:bg-surface-container-highest text-on-surface font-semibold text-sm rounded-xl transition-all duration-300 border border-outline-variant/30 hover:shadow-md hover:-translate-y-0.5">
                   <Github className="w-4 h-4" /> View Source
                 </a>
               )}
               {project.demo && (
-                <a href={project.demo} target="_blank" rel="noopener noreferrer" className={cn("flex items-center gap-2 px-4 py-2 text-on-primary font-semibold text-sm rounded-xl transition-colors shadow-sm", colors.barBg.split(" ")[0], "hover:opacity-90")}>
+                <a href={project.demo} target="_blank" rel="noopener noreferrer" className={cn("flex items-center gap-2 px-6 py-3 text-white font-bold text-sm rounded-xl transition-all duration-300 shadow-md hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:-translate-y-0.5", colors.barBg.split(" ")[0])}>
                   <ExternalLink className="w-4 h-4" /> Live Demo
                 </a>
               )}
@@ -215,7 +215,7 @@ export function Projects() {
                 >
                   <div
                     className={cn(
-                      "w-16 h-16 rounded-full shrink-0 flex items-center justify-center bg-surface-container-lowest border-4 border-surface-container-high group-hover:scale-110 transition-all duration-300 shadow-sm",
+                      "w-16 h-16 rounded-full shrink-0 flex items-center justify-center bg-surface-container-lowest border-4 border-surface-container-high group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(56,189,248,0.2)] transition-all duration-500 shadow-sm",
                       colors.milestoneHover
                     )}
                   >
@@ -327,10 +327,11 @@ export function Projects() {
                   {/* Color bar */}
                   <div
                     className={cn(
-                      "h-3 transition-colors",
+                      "h-2 transition-all duration-500 opacity-80 group-hover:opacity-100 group-hover:h-3",
                       colors.barBg
                     )}
                   />
+                  <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                   <div className="p-10 flex-1 flex flex-col">
                     {/* Title row */}
@@ -359,11 +360,11 @@ export function Projects() {
                     </p>
 
                     {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 mb-10">
+                    <div className="flex flex-wrap gap-2 mb-10 relative z-10">
                       {project.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-3 py-1 bg-surface-container text-on-surface font-body text-xs font-semibold rounded-lg border border-outline-variant/30"
+                          className="px-3 py-1.5 bg-surface-container-low/50 dark:bg-zinc-800/40 text-on-surface font-body text-xs font-semibold rounded-lg border border-outline-variant/30 backdrop-blur-md"
                         >
                           {tech}
                         </span>
@@ -387,14 +388,14 @@ export function Projects() {
 
                     {/* Links */}
                     {(project.github || project.demo) && (
-                      <div className="flex gap-4 mt-auto pt-4 border-t border-outline-variant/30" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex gap-4 mt-auto pt-6 border-t border-outline-variant/30 relative z-10" onClick={(e) => e.stopPropagation()}>
                         {project.github && (
-                          <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-colors">
+                          <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-all duration-300 rounded-xl bg-surface-container-low/30 hover:bg-surface-container border border-outline-variant/30 hover:shadow-md hover:-translate-y-0.5">
                             <Github className="w-4 h-4" /> Code
                           </a>
                         )}
                         {project.demo && (
-                          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-colors">
+                          <a href={project.demo} target="_blank" rel="noopener noreferrer" className={cn("flex items-center gap-2 px-4 py-2 text-sm font-bold text-white transition-all duration-300 rounded-xl shadow-sm hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] hover:-translate-y-0.5", colors.barBg.split(" ")[0])}>
                             <ExternalLink className="w-4 h-4" /> Live
                           </a>
                         )}
