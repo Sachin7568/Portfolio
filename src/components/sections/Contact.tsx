@@ -50,30 +50,31 @@ export function Contact() {
     setStatus("loading");
 
     try {
-      // Use FormData instead of JSON to avoid CORS preflight blocks
-      const data = new FormData();
-      data.append("access_key", "97b13b11-1842-46c0-9c47-f949802b2321");
-      data.append("name", formData.name);
-      data.append("email", formData.email);
-      data.append("subject", formData.subject);
-      data.append("message", formData.message);
-
-      const response = await fetch("https://api.web3forms.com/submit", {
+      // Use FormSubmit for completely keyless serverless email sending
+      const response = await fetch("https://formsubmit.co/ajax/sachinportfoliowebdev@gmail.com", {
         method: "POST",
-        body: data,
         headers: {
+          "Content-Type": "application/json",
           Accept: "application/json",
         },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _subject: `New Message from ${formData.name} (Portfolio)`,
+          _template: "box",
+        }),
       });
 
       let result;
       try {
         result = await response.json();
       } catch (parseError) {
-        console.error("Failed to parse Web3Forms response (possibly blocked):", parseError);
+        console.error("Failed to parse response:", parseError);
       }
 
-      if (response.ok && (!result || result.success !== false)) {
+      if (response.ok && (!result || result.success === "true" || result.success === true)) {
         setStatus("success");
         setFormData(initialFormData);
         setTimeout(() => setStatus("idle"), 5000);
