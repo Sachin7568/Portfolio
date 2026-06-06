@@ -319,8 +319,8 @@ export function Projects() {
                       {/* Badges row */}
                       <div className="flex justify-between items-center mb-4">
                         <div className="flex gap-2 items-center">
-                          {project.year === "2026" && (
-                            <span className="px-2 py-1 bg-[var(--accent-2)] text-[var(--accent)] font-headline text-xs font-bold rounded-md">
+                          {project.year === 2026 && (
+                            <span className="px-2 py-1 bg-[var(--accent-2)] text-[var(--accent)] text-[10px] font-bold uppercase tracking-wider rounded-md border border-[var(--accent-3)] shadow-[0_0_10px_var(--accent-3)]">
                               ★ Featured
                             </span>
                           )}
