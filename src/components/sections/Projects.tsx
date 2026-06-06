@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { Github } from "@/components/ui/Icons";
 import { cn } from "@/lib/utils";
-
+import { Tilt3D } from "@/components/ui/Tilt3D";
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Gamepad2,
   Crown,
@@ -310,99 +310,102 @@ export function Projects() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
+                className="h-full"
               >
-                <div
-                  className="project-card glass dark:bg-zinc-900/60 border border-outline-variant/30 rounded-2xl overflow-hidden flex flex-col group transition-all duration-500 cursor-pointer h-full hover:-translate-y-2"
-                  onClick={() => setSelectedProject(project)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setSelectedProject(project);
-                    }
-                  }}
-                  aria-label={`View details for ${project.title}`}
-                >
-                  {/* Color bar */}
+                <Tilt3D tiltMaxAngleX={4} tiltMaxAngleY={4} scale={1.02} className="h-full">
                   <div
-                    className={cn(
-                      "h-2 transition-all duration-500 opacity-80 group-hover:opacity-100 group-hover:h-3",
-                      colors.barBg
-                    )}
-                  />
-                  <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    className="project-card glass dark:bg-zinc-900/60 border border-outline-variant/30 rounded-2xl overflow-hidden flex flex-col group transition-all duration-500 cursor-pointer h-full hover:-translate-y-2"
+                    onClick={() => setSelectedProject(project)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setSelectedProject(project);
+                      }
+                    }}
+                    aria-label={`View details for ${project.title}`}
+                  >
+                    {/* Color bar */}
+                    <div
+                      className={cn(
+                        "h-2 transition-all duration-500 opacity-80 group-hover:opacity-100 group-hover:h-3",
+                        colors.barBg
+                      )}
+                    />
+                    <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                  <div className="p-10 flex-1 flex flex-col">
-                    {/* Title row */}
-                    <div className="flex justify-between items-start mb-6">
-                      <h3
-                        className={cn(
-                          "font-headline text-2xl font-semibold text-on-surface transition-colors",
-                          colors.hoverText
-                        )}
-                      >
-                        {project.title}
-                      </h3>
-                      <div
-                        className={cn(
-                          "w-10 h-10 rounded-full flex items-center justify-center",
-                          colors.iconBg
-                        )}
-                      >
-                        <Icon className="w-5 h-5" />
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="font-body text-base text-on-surface-variant mb-10 line-clamp-2">
-                      {project.description}
-                    </p>
-
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 mb-10 relative z-10">
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1.5 bg-surface-container-low/50 dark:bg-zinc-800/40 text-on-surface font-body text-xs font-semibold rounded-lg border border-outline-variant/30 backdrop-blur-md"
+                    <div className="p-10 flex-1 flex flex-col">
+                      {/* Title row */}
+                      <div className="flex justify-between items-start mb-6">
+                        <h3
+                          className={cn(
+                            "font-headline text-2xl font-semibold text-on-surface transition-colors",
+                            colors.hoverText
+                          )}
                         >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Highlights */}
-                    <ul className="font-body text-sm text-on-surface-variant list-none space-y-2 mb-6 flex-1">
-                      {project.highlights.slice(0, 2).map((h, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <CheckCircle
-                            className={cn(
-                              "w-4 h-4 mt-0.5 shrink-0",
-                              colors.checkColor
-                            )}
-                          />
-                          {h}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Links */}
-                    {(project.github || project.demo) && (
-                      <div className="flex gap-4 mt-auto pt-6 border-t border-outline-variant/30 relative z-10" onClick={(e) => e.stopPropagation()}>
-                        {project.github && (
-                          <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-all duration-300 rounded-xl bg-surface-container-low/30 hover:bg-surface-container border border-outline-variant/30 hover:shadow-md hover:-translate-y-0.5">
-                            <Github className="w-4 h-4" /> Code
-                          </a>
-                        )}
-                        {project.demo && (
-                          <a href={project.demo} target="_blank" rel="noopener noreferrer" className={cn("flex items-center gap-2 px-4 py-2 text-sm font-bold text-white transition-all duration-300 rounded-xl shadow-sm hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] hover:-translate-y-0.5", colors.barBg.split(" ")[0])}>
-                            <ExternalLink className="w-4 h-4" /> Live
-                          </a>
-                        )}
+                          {project.title}
+                        </h3>
+                        <div
+                          className={cn(
+                            "w-10 h-10 rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110",
+                            colors.iconBg
+                          )}
+                        >
+                          <Icon className="w-5 h-5 drop-shadow-sm" />
+                        </div>
                       </div>
-                    )}
+
+                      {/* Description */}
+                      <p className="font-body text-base text-on-surface-variant mb-10 line-clamp-2">
+                        {project.description}
+                      </p>
+
+                      {/* Technologies */}
+                      <div className="flex flex-wrap gap-2 mb-10 relative z-10">
+                        {project.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1.5 bg-surface-container-low/50 dark:bg-zinc-800/40 text-on-surface font-body text-xs font-semibold rounded-lg border border-outline-variant/30 backdrop-blur-md"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Highlights */}
+                      <ul className="font-body text-sm text-on-surface-variant list-none space-y-2 mb-6 flex-1">
+                        {project.highlights.slice(0, 2).map((h, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <CheckCircle
+                              className={cn(
+                                "w-4 h-4 mt-0.5 shrink-0",
+                                colors.checkColor
+                              )}
+                            />
+                            {h}
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Links */}
+                      {(project.github || project.demo) && (
+                        <div className="flex gap-4 mt-auto pt-6 border-t border-outline-variant/30 relative z-10" onClick={(e) => e.stopPropagation()}>
+                          {project.github && (
+                            <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-all duration-300 rounded-xl bg-surface-container-low/30 hover:bg-surface-container border border-outline-variant/30 hover:shadow-md hover:-translate-y-0.5">
+                              <Github className="w-4 h-4" /> Code
+                            </a>
+                          )}
+                          {project.demo && (
+                            <a href={project.demo} target="_blank" rel="noopener noreferrer" className={cn("flex items-center gap-2 px-4 py-2 text-sm font-bold text-white transition-all duration-300 rounded-xl shadow-sm hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] hover:-translate-y-0.5", colors.barBg.split(" ")[0])}>
+                              <ExternalLink className="w-4 h-4" /> Live
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </Tilt3D>
               </motion.div>
             );
           })}
