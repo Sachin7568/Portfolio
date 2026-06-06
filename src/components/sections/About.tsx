@@ -10,7 +10,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="py-16 md:py-24 border-b border-outline-variant/50 relative overflow-hidden"
+      className="py-12 md:py-24 border-b border-outline-variant/50 relative overflow-hidden"
       aria-labelledby="about-heading"
     >
       {/* 3D Background Orbs */}
@@ -22,10 +22,10 @@ export function About() {
           <SectionHeader title="About Me" id="about-heading" align="center" />
         </AnimatedSection>
 
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+        <div className="mt-8 md:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 items-stretch">
           <AnimatedSection delay={0.2} className="h-full">
             <Tilt3D tiltMaxAngleX={5} tiltMaxAngleY={5} depth={30} className="h-full">
-              <div className="h-full font-body text-lg text-on-surface-variant space-y-6 glass dark:bg-zinc-900/40 p-10 md:p-14 rounded-[2.5rem] border border-outline-variant/30 shadow-xl relative overflow-hidden group">
+              <div className="h-full font-body text-base md:text-lg text-on-surface-variant space-y-4 md:space-y-6 bg-[var(--bg-1)] backdrop-blur-md p-6 md:p-14 rounded-3xl md:rounded-[2.5rem] border border-[var(--b1)] shadow-xl relative overflow-hidden group">
                 <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                 
                 <h3 className="font-headline text-2xl font-bold text-on-surface mb-6 group-hover:text-primary transition-colors duration-500 relative z-10">

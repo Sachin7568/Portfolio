@@ -35,10 +35,14 @@ export function Education() {
   return (
     <section
       id="education"
-      className="py-16 md:py-24 border-b border-outline-variant/50"
+      className="py-12 md:py-24 border-b border-outline-variant/50 relative overflow-hidden"
       aria-labelledby="education-heading"
     >
-      <div className="max-w-[1200px] mx-auto">
+      {/* 3D Background Orbs */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-secondary/10 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10" />
+
+      <div className="max-w-[1200px] mx-auto relative z-10 px-4">
         <AnimatedSection>
           <SectionHeader title="Education" id="education-heading" />
         </AnimatedSection>
@@ -51,7 +55,7 @@ export function Education() {
             return (
               <AnimatedSection key={edu.id} delay={index * 0.15}>
                 <Tilt3D tiltMaxAngleX={4} tiltMaxAngleY={4} scale={1.02} className="h-full">
-                  <div className="glass dark:bg-zinc-900/60 border border-outline-variant/30 rounded-2xl p-10 relative overflow-hidden group h-full hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] transition-all duration-500">
+                  <div className="bg-[var(--bg-1)] backdrop-blur-md border border-[var(--b1)] rounded-2xl p-6 md:p-10 relative overflow-hidden group h-full hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] transition-all duration-500">
                     {/* Decorative corner */}
                     <div
                       className={cn(
@@ -71,7 +75,7 @@ export function Education() {
                     </div>
 
                     {/* Content */}
-                    <h3 className="font-headline text-2xl font-semibold text-on-surface mb-2 relative z-10">
+                    <h3 className="font-headline text-xl md:text-2xl font-semibold text-on-surface mb-2 relative z-10">
                       {edu.title}
                     </h3>
                     <p

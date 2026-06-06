@@ -38,17 +38,23 @@ export function Certifications() {
   return (
     <section
       id="certifications"
-      className="py-24 md:py-40 border-b border-outline-variant/50"
+      className="py-12 md:py-32 border-b border-outline-variant/50 relative overflow-hidden"
       aria-labelledby="certifications-heading"
     >
-      <AnimatedSection>
-        <SectionHeader
-          title="Licenses & Certifications"
-          id="certifications-heading"
-        />
-      </AnimatedSection>
+      {/* 3D Background Orbs */}
+      <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-1/4 left-1/4 w-72 h-72 bg-secondary/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div className="max-w-[1200px] mx-auto px-4 relative z-10">
+        <AnimatedSection>
+          <SectionHeader
+            title="Licenses & Certifications"
+            id="certifications-heading"
+          />
+        </AnimatedSection>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 max-w-6xl mx-auto px-6 relative z-10">
         {certifications.map((cert, index) => {
           const isCoursera = cert.issuer.toLowerCase().includes("coursera");
           const isSwayam = cert.issuer.toLowerCase().includes("swayam");
@@ -66,10 +72,10 @@ export function Certifications() {
             : "hover:border-[var(--accent)] hover:shadow-[0_0_30px_var(--accent-2)]";
 
           const topBorderClass = isCoursera
-            ? "border-t-[#0056D2]"
+            ? "border-t-[4px] border-t-[#0056D2]"
             : isSwayam
-            ? "border-t-[#E87720]"
-            : "border-t-[var(--accent)]";
+            ? "border-t-[4px] border-t-[#E87720]"
+            : "border-t-[4px] border-t-[var(--accent)]";
 
           const bgGradientClass = isCoursera
             ? "from-[#0056D2]/10 to-transparent"
@@ -95,7 +101,7 @@ export function Certifications() {
                 <CardWrapper
                   {...wrapperProps}
                   className={cn(
-                    "group relative flex flex-col p-8 rounded-[20px] bg-[var(--bg-1)] backdrop-blur-md border-x border-b border-[var(--b1)] border-t-[4px] transition-all duration-500 ease-out h-full hover:-translate-y-2 cursor-pointer shadow-lg overflow-hidden",
+                    "group relative flex flex-col p-6 md:p-8 rounded-[20px] bg-[var(--bg-1)] backdrop-blur-md border-x border-b border-[var(--b1)] transition-all duration-500 ease-out h-full hover:-translate-y-2 cursor-pointer shadow-lg overflow-hidden",
                     topBorderClass,
                     hoverBorderClass
                   )}

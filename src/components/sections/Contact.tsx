@@ -111,24 +111,28 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="py-16 md:py-24 border-b border-outline-variant/50"
+      className="py-12 md:py-24 border-b border-outline-variant/50 relative overflow-hidden"
       aria-labelledby="contact-heading"
     >
-      <div className="max-w-5xl mx-auto px-4">
+      {/* 3D Background Orbs */}
+      <div className="absolute top-0 right-0 w-80 h-80 bg-secondary/10 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10" />
+
+      <div className="max-w-5xl mx-auto px-4 relative z-10">
         <AnimatedSection>
           <SectionHeader title="Get In Touch" id="contact-heading" align="center" />
         </AnimatedSection>
 
         <AnimatedSection delay={0.2}>
-          <div className="glass dark:bg-zinc-900/40 p-1 md:p-2 rounded-[2rem] border border-outline-variant/30 shadow-[0_0_40px_rgba(0,0,0,0.05)]">
+          <div className="bg-[var(--bg-1)] backdrop-blur-md p-1 md:p-2 rounded-[2rem] border border-[var(--b1)] shadow-[0_0_40px_rgba(0,0,0,0.05)]">
             <div className="bg-surface dark:bg-zinc-950/50 rounded-[1.8rem] overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-5">
                 {/* Left Side: Contact Info */}
-                <div className="lg:col-span-2 bg-gradient-to-br from-primary/10 to-tertiary/10 p-10 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-outline-variant/20 relative overflow-hidden">
+                <div className="lg:col-span-2 bg-gradient-to-br from-primary/10 to-tertiary/10 p-5 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-outline-variant/20 relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-50" />
                   
                   <div className="relative z-10">
-                    <h3 className="font-headline text-3xl font-bold text-on-surface mb-4">
+                    <h3 className="font-headline text-2xl md:text-3xl font-bold text-on-surface mb-4">
                       Let&apos;s build something great together.
                     </h3>
                     <p className="font-body text-base text-on-surface-variant mb-12 leading-relaxed">
@@ -142,7 +146,7 @@ export function Contact() {
                         </div>
                         <div>
                           <p className="text-xs text-on-surface-variant font-semibold uppercase tracking-wider mb-1">Email</p>
-                          <a href="mailto:sachinportfoliowebdev@gmail.com" className="text-on-surface font-semibold hover:text-primary transition-colors">
+                          <a href="mailto:sachinportfoliowebdev@gmail.com" className="text-on-surface font-semibold hover:text-primary transition-colors text-[13px] sm:text-base">
                             sachinportfoliowebdev@gmail.com
                           </a>
                         </div>
@@ -152,7 +156,7 @@ export function Contact() {
                 </div>
 
                 {/* Right Side: Form */}
-                <div className="lg:col-span-3 p-10 md:p-12">
+                <div className="lg:col-span-3 p-5 sm:p-8 md:p-12">
                   {status === "success" ? (
                     <div className="text-center py-16">
                       <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">

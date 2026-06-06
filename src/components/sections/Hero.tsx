@@ -28,13 +28,13 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="py-16 md:py-32 flex flex-col items-center justify-center text-center gap-16 border-b border-[var(--b1)] relative overflow-hidden hero-bg"
+      className="py-12 md:py-32 flex flex-col items-center justify-center text-center gap-8 md:gap-16 border-b border-[var(--b1)] relative overflow-hidden hero-bg"
       aria-label="Hero section"
     >
       <div className="absolute inset-0 bg-linear-to-b from-transparent to-[var(--bg)] z-0 pointer-events-none" />
 
       <motion.div
-        className="max-w-4xl space-y-10 relative z-10"
+        className="max-w-4xl space-y-6 md:space-y-10 relative z-10"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -53,7 +53,7 @@ export function Hero() {
         {/* Heading */}
         <motion.h1
           variants={itemVariants}
-          className="font-headline text-[48px] md:text-[64px] lg:text-[72px] font-extrabold tracking-tight leading-[1.1] relative mix-blend-screen"
+          className="font-headline text-4xl sm:text-[48px] md:text-[64px] lg:text-[72px] font-extrabold tracking-tight leading-[1.1] relative mix-blend-screen px-4"
         >
           <span className="text-[var(--t1)] drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">Engineering Practical</span>
           <br />
@@ -63,7 +63,7 @@ export function Hero() {
         {/* Description */}
         <motion.p
           variants={itemVariants}
-          className="font-body text-lg md:text-xl text-[var(--t2)] max-w-2xl mx-auto leading-relaxed"
+          className="font-body text-base sm:text-lg md:text-xl text-[var(--t2)] max-w-2xl mx-auto leading-relaxed px-4"
         >
           {personal.description}
         </motion.p>
@@ -71,7 +71,7 @@ export function Hero() {
         {/* CTA Buttons */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-wrap justify-center gap-6 pt-6 relative z-20"
+          className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-6 pt-6 relative z-20 w-full px-4 sm:px-0"
         >
           <a
             href="#projects"
@@ -79,7 +79,7 @@ export function Hero() {
               e.preventDefault();
               document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="inline-flex items-center justify-center gap-2 border border-[var(--accent)] bg-[var(--accent-3)] text-[var(--accent)] font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:bg-[var(--accent-2)] hover:shadow-[0_0_25px_var(--accent-3)] transition-all duration-300 backdrop-blur-md"
+            className="flex items-center justify-center gap-2 border border-[var(--accent)] bg-[var(--accent-3)] text-[var(--accent)] font-body text-sm font-semibold tracking-[0.02em] px-6 py-3 md:px-8 md:py-4 rounded-xl hover:bg-[var(--accent-2)] hover:shadow-[0_0_25px_var(--accent-3)] transition-all duration-300 backdrop-blur-md w-full sm:w-auto"
           >
             View My Work
             <ArrowRight className="w-5 h-5" />
@@ -88,7 +88,7 @@ export function Hero() {
             href="https://drive.google.com/file/d/1y72evci1AKoov-q-fNGM4lKyfjOH4aiL/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 border border-[var(--accent)] bg-[var(--accent-3)] text-[var(--accent)] font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:bg-[var(--accent-2)] hover:shadow-[0_0_25px_var(--accent-3)] transition-all duration-300 backdrop-blur-md"
+            className="flex items-center justify-center gap-2 border border-[var(--accent)] bg-[var(--accent-3)] text-[var(--accent)] font-body text-sm font-semibold tracking-[0.02em] px-6 py-3 md:px-8 md:py-4 rounded-xl hover:bg-[var(--accent-2)] hover:shadow-[0_0_25px_var(--accent-3)] transition-all duration-300 backdrop-blur-md w-full sm:w-auto"
           >
             <FileText className="w-5 h-5" />
             Resume
@@ -99,7 +99,7 @@ export function Hero() {
               e.preventDefault();
               document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="inline-flex items-center justify-center gap-2 border border-[var(--accent)] bg-[var(--accent-3)] text-[var(--accent)] font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:bg-[var(--accent-2)] hover:shadow-[0_0_25px_var(--accent-3)] transition-all duration-300 backdrop-blur-md"
+            className="flex items-center justify-center gap-2 border border-[var(--accent)] bg-[var(--accent-3)] text-[var(--accent)] font-body text-sm font-semibold tracking-[0.02em] px-6 py-3 md:px-8 md:py-4 rounded-xl hover:bg-[var(--accent-2)] hover:shadow-[0_0_25px_var(--accent-3)] transition-all duration-300 backdrop-blur-md w-full sm:w-auto"
           >
             <Mail className="w-5 h-5" />
             Contact Me

@@ -62,8 +62,8 @@
   --t1:            #09090B;
   --t2:            #52525B;
   --t3:            #A1A1AA;
-  --b1:            rgba(0,0,0,0.06);
-  --b2:            rgba(0,0,0,0.12);
+  --b1:            rgba(0,0,0,0.15);
+  --b2:            rgba(0,0,0,0.25);
   --b3:            rgba(99, 102, 241, 0.35);
 
   --color-primary-fixed: #dbe1ff;
@@ -238,13 +238,11 @@ body {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
 }
 
 .dark .glass {
   background: rgba(24, 24, 27, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 

@@ -187,20 +187,25 @@ export function Projects() {
   // Close modal on Escape is handled elsewhere
 
   return (
-    <section
-      id="projects"
-      className="py-24 md:py-40 border-b border-outline-variant/50"
+    <section 
+      id="projects" 
+      className="py-12 md:py-32 border-b border-outline-variant/50 relative overflow-hidden"
       aria-labelledby="projects-heading"
     >
-      <AnimatedSection>
-        <SectionHeader title="Featured Projects" id="projects-heading" />
-      </AnimatedSection>
+      {/* 3D Background Orbs */}
+      <div className="absolute top-1/3 left-0 w-96 h-96 bg-tertiary/10 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
-      {/* Filters & Search */}
-      <AnimatedSection delay={0.2}>
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
-          {/* Search */}
-          <div className="flex justify-start w-full md:w-auto">
+      <div className="max-w-[1200px] mx-auto px-4 relative z-10">
+        <AnimatedSection>
+          <SectionHeader title="Featured Projects" id="projects-heading" />
+        </AnimatedSection>
+
+        {/* Filters & Search */}
+        <AnimatedSection delay={0.2}>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
+            {/* Search */}
+            <div className="flex justify-start w-full md:w-auto">
             <div className="relative h-10 w-full md:w-64 rounded-full bg-[var(--bg-1)] border border-[var(--b1)] flex items-center shadow-sm backdrop-blur-md">
               <Search className="absolute left-3 w-4 h-4 text-[var(--t2)] pointer-events-none" />
               <input
@@ -275,8 +280,7 @@ export function Projects() {
         </div>
       </AnimatedSection>
 
-      {/* Project Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-16 md:mb-20">
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, index) => {
             const Icon = iconMap[project.icon] || Gamepad2;
@@ -315,7 +319,7 @@ export function Projects() {
                     />
                     <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                    <div className="p-10 flex-1 flex flex-col">
+                    <div className="p-5 md:p-8 flex-1 flex flex-col">
                       {/* Badges row */}
                       <div className="flex justify-between items-center mb-4">
                         <div className="flex gap-2 items-center">
@@ -334,7 +338,7 @@ export function Projects() {
                       <div className="flex justify-between items-start mb-4">
                         <h3
                           className={cn(
-                            "font-headline text-2xl font-bold text-on-surface transition-colors",
+                            "font-headline text-xl md:text-2xl font-bold text-on-surface transition-colors",
                             colors.hoverText
                           )}
                         >
@@ -356,7 +360,7 @@ export function Projects() {
                       </p>
 
                       {/* Technologies */}
-                      <div className="flex flex-wrap gap-2 mb-10 relative z-10">
+                      <div className="flex flex-wrap gap-2 mb-8 relative z-10">
                         {project.technologies.map((tech) => (
                           <span
                             key={tech}
@@ -430,6 +434,7 @@ export function Projects() {
           />
         )}
       </AnimatePresence>
+      </div>
     </section>
   );
 }

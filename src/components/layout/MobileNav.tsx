@@ -84,11 +84,11 @@ export function MobileNav() {
 
             {/* Drawer */}
             <motion.nav
-              initial={{ x: "-100%" }}
+              initial={{ x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
+              exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="md:hidden fixed inset-y-0 left-0 z-50 flex flex-col w-72 bg-surface-container  shadow-2xl"
+              className="md:hidden fixed inset-y-0 right-0 z-50 flex flex-col w-72 bg-surface-container  shadow-2xl"
               role="dialog"
               aria-label="Navigation menu"
             >
