@@ -51,7 +51,21 @@
   --color-inverse-on-surface: #f4f4f5;
   --color-inverse-primary: #60a5fa;
   
-  /* Retain any original fixed colors to prevent breaking */
+  /* --- Experimental UI/UX Tokens (Light) --- */
+  --bg:            #FFFFFF;
+  --bg-1:          #F4F4F5;
+  --bg-2:          #E4E4E7;
+  --bg-3:          #D4D4D8;
+  --accent:        #6366F1;
+  --accent-2:      rgba(99, 102, 241, 0.15);
+  --accent-3:      rgba(99, 102, 241, 0.06);
+  --t1:            #09090B;
+  --t2:            #52525B;
+  --t3:            #A1A1AA;
+  --b1:            rgba(0,0,0,0.06);
+  --b2:            rgba(0,0,0,0.12);
+  --b3:            rgba(99, 102, 241, 0.35);
+
   --color-primary-fixed: #dbe1ff;
   --color-primary-fixed-dim: #b4c5ff;
   --color-secondary-fixed: #d8e3fb;
@@ -66,9 +80,9 @@
   --color-on-tertiary-fixed-variant: #004e5c;
 
   /* --- Typography --- */
-  --font-headline: "Plus Jakarta Sans", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-code: monospace;
+  --font-headline: var(--next-font-headline), sans-serif;
+  --font-body: var(--next-font-body), sans-serif;
+  --font-code: var(--next-font-code), monospace;
 }
 
 /* =============================================
@@ -118,6 +132,21 @@
     --color-inverse-on-surface: #18181b;
     --color-inverse-primary: #0284c7;
     --color-surface-tint: #38bdf8;
+
+    /* --- Experimental UI/UX Tokens (Dark) --- */
+    --bg:            #080810;
+    --bg-1:          #0F0F1A;
+    --bg-2:          #16162A;
+    --bg-3:          #1E1E35;
+    --accent:        #7C6EFA;
+    --accent-2:      rgba(124, 110, 250, 0.15);
+    --accent-3:      rgba(124, 110, 250, 0.06);
+    --t1:            #EEEEF5;
+    --t2:            #8888A8;
+    --t3:            #4A4A6A;
+    --b1:            rgba(255,255,255,0.06);
+    --b2:            rgba(255,255,255,0.12);
+    --b3:            rgba(124,110,250,0.35);
   }
 }
 
@@ -129,8 +158,8 @@ html {
 }
 
 body {
-  background: var(--color-background);
-  color: var(--color-on-background);
+  background: var(--bg);
+  color: var(--t1);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -141,12 +170,7 @@ body {
   color: var(--color-on-primary-container);
 }
 
-/* Focus visible for accessibility */
-*:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
+/* Removed global *:focus-visible to prevent conflicting double-rings on inputs */
 
 /* =============================================
    Custom Utility Classes (Premium UI)
@@ -164,11 +188,26 @@ body {
 }
 
 .hero-bg {
-  background-image: radial-gradient(
-    var(--color-surface-container-high) 1px,
-    transparent 1px
-  );
-  background-size: 32px 32px;
+  position: relative;
+  z-index: 0;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  top: -200px; left: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(124,110,250,0.12) 0%, transparent 65%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  bottom: -150px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(124,110,250,0.07) 0%, transparent 65%);
 }
 
 .project-card {

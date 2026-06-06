@@ -1,17 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, Mail, FileText } from "lucide-react";
 import { Github, Linkedin } from "@/components/ui/Icons";
 import { personal } from "@/data/personal";
 import { cn } from "@/lib/utils";
-import { FloatingShapes } from "@/components/ui/FloatingShapes";
 
-const floatingElements = [
-  { size: 350, x: "-10%", y: "-10%", delay: 0, duration: 8, color: "bg-primary/20 dark:bg-primary/10" },
-  { size: 450, x: "70%", y: "40%", delay: 1, duration: 10, color: "bg-tertiary/20 dark:bg-tertiary/10" },
-  { size: 300, x: "20%", y: "80%", delay: 2, duration: 7, color: "bg-secondary/20 dark:bg-secondary/10" },
-];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -34,41 +28,10 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="py-16 md:py-32 flex flex-col items-center justify-center text-center gap-16 border-b border-outline-variant/50 relative overflow-hidden hero-bg"
+      className="py-16 md:py-32 flex flex-col items-center justify-center text-center gap-16 border-b border-[var(--b1)] relative overflow-hidden hero-bg"
       aria-label="Hero section"
     >
-      {/* 3D Floating Shapes */}
-      <FloatingShapes />
-      
-      {/* Premium Gradient Orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {floatingElements.map((el, i) => (
-          <motion.div
-            key={i}
-            className={cn("absolute rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[80px] opacity-60", el.color)}
-            style={{
-              width: el.size,
-              height: el.size,
-              left: el.x,
-              top: el.y,
-            }}
-            animate={{
-              y: [0, -30, 0, 30, 0],
-              x: [0, 30, 0, -30, 0],
-              scale: [1, 1.1, 0.9, 1.05, 1],
-            }}
-            transition={{
-              duration: el.duration,
-              repeat: Infinity,
-              delay: el.delay,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-linear-to-b from-transparent to-background/90 z-0" />
+      <div className="absolute inset-0 bg-linear-to-b from-transparent to-[var(--bg)] z-0 pointer-events-none" />
 
       <motion.div
         className="max-w-4xl space-y-10 relative z-10"
@@ -78,10 +41,10 @@ export function Hero() {
       >
         {/* Status Badge */}
         <motion.div variants={itemVariants} className="flex justify-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-container/20 text-primary font-body text-sm font-semibold tracking-[0.02em] border border-primary/20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--bg-1)] backdrop-blur-md text-[var(--accent)] font-body text-sm font-semibold tracking-[0.02em] border border-[var(--b2)] shadow-[0_0_15px_var(--accent-3)]">
             <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-primary" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75" />
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-[var(--accent)]" />
             </span>
             Available for Opportunities
           </div>
@@ -90,33 +53,17 @@ export function Hero() {
         {/* Heading */}
         <motion.h1
           variants={itemVariants}
-          className="font-headline text-[48px] md:text-[64px] lg:text-[72px] font-extrabold tracking-tight leading-[1.1]"
+          className="font-headline text-[48px] md:text-[64px] lg:text-[72px] font-extrabold tracking-tight leading-[1.1] relative mix-blend-screen"
         >
-          <span className="text-on-surface">Engineering</span>{" "}
-          <span className="relative inline-block bg-linear-to-r from-primary via-tertiary to-secondary bg-clip-text text-transparent pb-2">
-            Practical
-            <svg
-              className="absolute w-full h-3 -bottom-1 left-0 text-primary opacity-40"
-              fill="none"
-              preserveAspectRatio="none"
-              viewBox="0 0 100 10"
-            >
-              <path
-                d="M0 5 Q 50 10 100 5"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeWidth="4"
-              />
-            </svg>
-          </span>
+          <span className="text-[var(--t1)] drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">Engineering Practical</span>
           <br />
-          <span className="text-on-surface">Software Solutions</span>
+          <span className="text-[var(--accent)] drop-shadow-[0_0_20px_var(--accent-2)]">Software Solutions</span>
         </motion.h1>
 
         {/* Description */}
         <motion.p
           variants={itemVariants}
-          className="font-body text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed"
+          className="font-body text-lg md:text-xl text-[var(--t2)] max-w-2xl mx-auto leading-relaxed"
         >
           {personal.description}
         </motion.p>
@@ -132,10 +79,19 @@ export function Hero() {
               e.preventDefault();
               document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="inline-flex items-center justify-center gap-2 bg-linear-to-r from-primary to-secondary text-white font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-all duration-300"
+            className="inline-flex items-center justify-center gap-2 border border-[var(--accent)] bg-[var(--accent-3)] text-[var(--accent)] font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:bg-[var(--accent-2)] hover:shadow-[0_0_25px_var(--accent-3)] transition-all duration-300 backdrop-blur-md"
           >
             View My Work
             <ArrowRight className="w-5 h-5" />
+          </a>
+          <a
+            href="https://drive.google.com/file/d/1y72evci1AKoov-q-fNGM4lKyfjOH4aiL/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 border border-[var(--accent)] bg-[var(--accent-3)] text-[var(--accent)] font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:bg-[var(--accent-2)] hover:shadow-[0_0_25px_var(--accent-3)] transition-all duration-300 backdrop-blur-md"
+          >
+            <FileText className="w-5 h-5" />
+            Resume
           </a>
           <a
             href="#contact"
@@ -143,7 +99,7 @@ export function Hero() {
               e.preventDefault();
               document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="inline-flex items-center justify-center gap-2 border border-outline-variant/50 text-on-surface font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:border-primary/50 hover:text-primary hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(59,130,246,0.15)] transition-all duration-300 glass"
+            className="inline-flex items-center justify-center gap-2 border border-[var(--accent)] bg-[var(--accent-3)] text-[var(--accent)] font-body text-sm font-semibold tracking-[0.02em] px-8 py-4 rounded-xl hover:bg-[var(--accent-2)] hover:shadow-[0_0_25px_var(--accent-3)] transition-all duration-300 backdrop-blur-md"
           >
             <Mail className="w-5 h-5" />
             Contact Me
@@ -152,34 +108,40 @@ export function Hero() {
 
         {/* Social Links */}
         <motion.div
-          variants={itemVariants}
-          className="flex justify-center gap-10 pt-10 text-on-surface-variant"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+          }}
+          className="flex justify-center gap-10 pt-10 text-[var(--t2)]"
         >
-          <a
+          <motion.a
+            variants={itemVariants}
             href={personal.social.github}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub Profile"
-            className="p-3 rounded-full bg-surface-container-low hover:bg-primary-container hover:text-on-primary-container transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="p-3 rounded-full bg-[var(--bg-1)] backdrop-blur-sm border border-[var(--b1)] hover:border-[var(--accent)] hover:shadow-[0_0_20px_var(--accent-3)] hover:text-[var(--accent)] transition-all duration-300 hover:-translate-y-1"
           >
             <Github className="w-7 h-7" />
-          </a>
-          <a
+          </motion.a>
+          <motion.a
+            variants={itemVariants}
             href={personal.social.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn Profile"
-            className="p-3 rounded-full bg-surface-container-low hover:bg-primary-container hover:text-on-primary-container transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="p-3 rounded-full bg-[var(--bg-1)] backdrop-blur-sm border border-[var(--b1)] hover:border-[var(--accent)] hover:shadow-[0_0_20px_var(--accent-3)] hover:text-[var(--accent)] transition-all duration-300 hover:-translate-y-1"
           >
             <Linkedin className="w-7 h-7" />
-          </a>
-          <a
+          </motion.a>
+          <motion.a
+            variants={itemVariants}
             href={personal.social.email}
             aria-label="Send Email"
-            className="p-3 rounded-full bg-surface-container-low hover:bg-primary-container hover:text-on-primary-container transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="p-3 rounded-full bg-[var(--bg-1)] backdrop-blur-sm border border-[var(--b1)] hover:border-[var(--accent)] hover:shadow-[0_0_20px_var(--accent-3)] hover:text-[var(--accent)] transition-all duration-300 hover:-translate-y-1"
           >
             <Mail className="w-7 h-7" />
-          </a>
+          </motion.a>
         </motion.div>
       </motion.div>
     </section>

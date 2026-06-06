@@ -6,45 +6,46 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-surface-container-low  border-t border-outline-variant dark:border-outline mt-16 relative">
-      <div className="absolute inset-0 bg-gradient-to-t from-surface-container-high/50 to-transparent pointer-events-none" />
-      <div className="flex flex-col md:flex-row justify-between items-center px-6 py-10 max-w-[1200px] mx-auto relative z-10">
-        <div className="font-headline text-2xl font-bold text-primary mb-6 md:mb-0">
+    <footer className="bg-surface-container-low border-t border-[var(--b1)] mt-32 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-1)] to-transparent pointer-events-none z-0" />
+      
+      <div className="flex flex-col md:flex-row justify-between items-center px-6 py-16 max-w-[1200px] mx-auto relative z-10">
+        <div className="font-headline text-2xl font-bold text-[var(--t1)] mb-8 md:mb-0">
           Sachin.dev
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6 mb-6 md:mb-0">
+        <div className="flex flex-wrap justify-center gap-8 mb-8 md:mb-0">
           <a
             href={personal.social.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors"
+            className="flex items-center gap-2 text-sm font-code text-[var(--t2)] hover:text-[var(--accent)] transition-all duration-300 hover:drop-shadow-[0_0_10px_var(--accent)] hover:-translate-y-0.5"
             aria-label="GitHub"
           >
-            <Github className="w-4 h-4" />
+            <Github className="w-5 h-5" />
             GitHub
           </a>
           <a
             href={personal.social.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors"
+            className="flex items-center gap-2 text-sm font-code text-[var(--t2)] hover:text-[var(--accent)] transition-all duration-300 hover:drop-shadow-[0_0_10px_var(--accent)] hover:-translate-y-0.5"
             aria-label="LinkedIn"
           >
-            <Linkedin className="w-4 h-4" />
+            <Linkedin className="w-5 h-5" />
             LinkedIn
           </a>
           <a
             href={personal.social.email}
-            className="flex items-center gap-2 text-sm text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors"
+            className="flex items-center gap-2 text-sm font-code text-[var(--t2)] hover:text-[var(--accent)] transition-all duration-300 hover:drop-shadow-[0_0_10px_var(--accent)] hover:-translate-y-0.5"
             aria-label="Email"
           >
-            <Mail className="w-4 h-4" />
+            <Mail className="w-5 h-5" />
             Email
           </a>
         </div>
 
-        <div className="text-sm text-secondary dark:text-secondary-fixed">
+        <div className="text-sm font-code text-[var(--t3)]">
           © {currentYear} Sachin. All Rights Reserved.
         </div>
       </div>

@@ -1,21 +1,28 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Syne, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { BackToTop } from "@/components/layout/BackToTop";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const syne = Syne({
   subsets: ["latin"],
   weight: ["600", "700", "800"],
-  variable: "--font-headline",
+  variable: "--next-font-headline",
   display: "swap",
 });
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["400", "600"],
-  variable: "--font-body",
+  weight: ["400", "500", "600"],
+  variable: "--next-font-body",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--next-font-code",
   display: "swap",
 });
 
@@ -83,7 +90,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} ${inter.variable}`}
+      className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <head>

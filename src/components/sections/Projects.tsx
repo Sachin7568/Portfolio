@@ -72,19 +72,20 @@ function ProjectModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/90 md:bg-black/60 md:backdrop-blur-sm"
       onClick={onClose}
       role="dialog"
       aria-label={`${project.title} details`}
       aria-modal="true"
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
         onClick={(e) => e.stopPropagation()}
-        className="glass dark:bg-zinc-950/80 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-outline-variant/30"
+        className="glass dark:bg-zinc-950/95 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-outline-variant/30"
       >
         {/* Header bar */}
         <div className={cn("h-2 rounded-t-2xl", colors.barBg.split(" ")[0])} />
@@ -164,145 +165,118 @@ function ProjectModal({
 
 export function Projects() {
   const [filter, setFilter] = useState<string>("All");
+  const [yearFilter, setYearFilter] = useState<string>("All");
   const [search, setSearch] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  const allYears = Array.from(new Set(projects.map(p => String(p.year)))).sort((a,b) => b.localeCompare(a));
+
   const filteredProjects = projects.filter((project) => {
-    const matchesFilter =
-      filter === "All" || project.technologies.includes(filter);
+    const matchesFilter = filter === "All" || project.technologies.includes(filter);
+    const matchesYear = yearFilter === "All" || String(project.year) === yearFilter;
     const matchesSearch =
       search === "" ||
       project.title.toLowerCase().includes(search.toLowerCase()) ||
       project.description.toLowerCase().includes(search.toLowerCase()) ||
-      project.technologies.some((t) =>
-        t.toLowerCase().includes(search.toLowerCase())
-      );
-    return matchesFilter && matchesSearch;
+      project.technologies.some((t) => t.toLowerCase().includes(search.toLowerCase()));
+    return matchesFilter && matchesYear && matchesSearch;
   });
 
   const handleCloseModal = useCallback(() => setSelectedProject(null), []);
 
-  // Close modal on Escape
-  if (typeof window !== "undefined") {
-    // This is handled via useEffect in the component lifecycle
-  }
+  // Close modal on Escape is handled elsewhere
 
   return (
     <section
       id="projects"
-      className="py-16 md:py-24 border-b border-outline-variant/50"
+      className="py-24 md:py-40 border-b border-outline-variant/50"
       aria-labelledby="projects-heading"
     >
       <AnimatedSection>
         <SectionHeader title="Featured Projects" id="projects-heading" />
       </AnimatedSection>
 
-      {/* Learning Journey Timeline */}
-      <AnimatedSection delay={0.1}>
-        <div className="mb-16 overflow-x-auto py-8 hide-scrollbar">
-          <div className="min-w-[800px] flex justify-between items-start relative px-8">
-            {/* Connecting Line */}
-            <div className="absolute left-8 right-8 top-8 h-1 bg-surface-container-high -translate-y-1/2 z-0" />
-
-            {/* Milestones */}
-            {[...projects].reverse().map((project) => {
-              const colors = colorMap[project.color];
-
-              return (
-                <Tilt3D
-                  key={project.id}
-                  tiltMaxAngleX={10} tiltMaxAngleY={10} scale={1.08} className="relative z-10 shrink-0 group cursor-pointer"
-                >
-                  <div onClick={() => setSelectedProject(project)} className="flex flex-col items-center gap-4">
-                    <div className="w-16 h-16 shrink-0 z-10 relative">
-                      <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:bg-primary/50 transition-colors duration-500 opacity-0 group-hover:opacity-100" />
-                      <div
-                        className={cn(
-                          "relative w-full h-full rounded-full shrink-0 flex items-center justify-center glass dark:bg-zinc-900/90 border-[3px] border-surface-container-highest group-hover:border-primary/70 shadow-[0_4px_15px_rgba(0,0,0,0.1)] group-hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] transition-all duration-500",
-                          colors.milestoneHover
-                        )}
-                      >
-                        <span className="font-body text-sm font-extrabold tracking-wide text-on-surface-variant group-hover:text-primary transition-colors duration-500">
-                          {project.year}
-                        </span>
-                      </div>
-                    </div>
-                    <span className="font-body text-sm text-center whitespace-nowrap font-semibold text-on-surface-variant transition-colors duration-500 group-hover:text-primary">
-                      {project.title.split(" ").slice(0, 2).join(" ")}
-                      {project.title.split(" ").slice(2).join(" ") && (
-                        <>
-                          <br />
-                          {project.title.split(" ").slice(2).join(" ")}
-                        </>
-                      )}
-                    </span>
-                  </div>
-                </Tilt3D>
-              );
-            })}
-          </div>
-        </div>
-      </AnimatedSection>
-
       {/* Filters & Search */}
       <AnimatedSection delay={0.2}>
-        <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-12">
-          {/* Search - put in front, expands compact (w-48), and no border highlight */}
-          <div className="shrink-0">
-            <div
-              className={cn(
-                "relative h-10 rounded-full bg-surface-container-low border border-outline-variant/30 flex items-center shadow-sm cursor-pointer transition-all duration-700 ease-in-out focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
-                isFocused || search !== "" ? "w-48" : "w-10"
-              )}
-              onClick={() => setIsFocused(true)}
-            >
-              <Search className="absolute left-3 w-4 h-4 text-on-surface-variant/70 pointer-events-none" />
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
+          {/* Search */}
+          <div className="flex justify-start w-full md:w-auto">
+            <div className="relative h-10 w-full md:w-64 rounded-full bg-[var(--bg-1)] border border-[var(--b1)] flex items-center shadow-sm backdrop-blur-md">
+              <Search className="absolute left-3 w-4 h-4 text-[var(--t2)] pointer-events-none" />
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder="Search projects..."
                 value={search}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                  if (e.target.value !== "") {
-                    setFilter("All");
-                  }
-                }}
-                className={cn(
-                  "w-full bg-transparent text-on-surface text-sm font-body placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 transition-opacity duration-700",
-                  isFocused || search !== "" ? "pl-10 pr-4 opacity-100" : "pl-0 pr-0 opacity-0 pointer-events-none"
-                )}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full h-full bg-transparent text-[var(--t1)] text-sm font-body placeholder:text-[var(--t3)] focus:outline-none pl-10 pr-4"
                 aria-label="Search projects"
               />
             </div>
           </div>
 
-
-
-          {/* Filter Pills */}
-          <div className="flex flex-wrap gap-2">
-            {["All", ...allTechnologies].map((tech) => (
-              <button
-                key={tech}
-                onClick={() => setFilter(tech)}
-                className={cn(
-                  "px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200",
-                  filter === tech
-                    ? "bg-primary text-on-primary shadow-sm"
-                    : "bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high border border-outline-variant/30"
-                )}
-              >
-                {tech}
-              </button>
-            ))}
+          {/* Filter Pills - Container */}
+          <div className="flex flex-col items-start md:items-end gap-3 flex-1">
+            {/* Tech Filter */}
+            <div className="flex flex-wrap gap-2 justify-start md:justify-end">
+              {["All", ...allTechnologies].map((tech) => {
+                const isActive = filter === tech;
+                return (
+                  <button
+                    key={tech}
+                    onClick={() => setFilter(tech)}
+                    className={cn(
+                      "relative px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 border border-transparent",
+                      isActive
+                        ? "text-[var(--accent)]"
+                        : "text-[var(--t2)] hover:text-[var(--accent)] hover:border-[var(--b2)]"
+                    )}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="filter-pill-tech"
+                        className="absolute inset-0 bg-[var(--accent-2)] border border-[var(--accent-3)] rounded-full -z-10"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    {tech}
+                  </button>
+                );
+              })}
+            </div>
+            
+            {/* Year Filter */}
+            <div className="flex flex-wrap gap-2 justify-start md:justify-end">
+              {["All", ...allYears].map((year) => {
+                const isActive = yearFilter === year;
+                return (
+                  <button
+                    key={year}
+                    onClick={() => setYearFilter(year)}
+                    className={cn(
+                      "relative px-3 py-1 rounded-full text-xs font-medium transition-colors duration-200 border border-transparent",
+                      isActive
+                        ? "text-[var(--t1)]"
+                        : "text-[var(--t3)] hover:text-[var(--t1)] hover:border-[var(--b2)]"
+                    )}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="filter-pill-year"
+                        className="absolute inset-0 bg-[var(--b2)] rounded-full -z-10"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    {year}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </AnimatedSection>
 
       {/* Project Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, index) => {
             const Icon = iconMap[project.icon] || Gamepad2;
@@ -320,7 +294,7 @@ export function Projects() {
               >
                 <Tilt3D tiltMaxAngleX={4} tiltMaxAngleY={4} scale={1.02} className="h-full">
                   <div
-                    className="project-card glass dark:bg-zinc-900/60 border border-outline-variant/30 rounded-2xl overflow-hidden flex flex-col group transition-all duration-500 cursor-pointer h-full hover:-translate-y-2"
+                    className="project-card bg-[var(--bg-1)] backdrop-blur-md border border-[var(--b1)] rounded-[20px] overflow-hidden flex flex-col group transition-all duration-500 cursor-pointer h-full hover:-translate-y-2 hover:border-[var(--accent)] hover:shadow-[0_0_30px_var(--accent-2)]"
                     onClick={() => setSelectedProject(project)}
                     role="button"
                     tabIndex={0}
@@ -342,11 +316,25 @@ export function Projects() {
                     <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                     <div className="p-10 flex-1 flex flex-col">
+                      {/* Badges row */}
+                      <div className="flex justify-between items-center mb-4">
+                        <div className="flex gap-2 items-center">
+                          {project.year === "2026" && (
+                            <span className="px-2 py-1 bg-[var(--accent-2)] text-[var(--accent)] font-headline text-xs font-bold rounded-md">
+                              ★ Featured
+                            </span>
+                          )}
+                        </div>
+                        <span className="font-code text-xs text-on-surface-variant font-medium bg-surface-container-low px-2 py-1 rounded-md border border-outline-variant/30">
+                          {project.year}
+                        </span>
+                      </div>
+
                       {/* Title row */}
-                      <div className="flex justify-between items-start mb-6">
+                      <div className="flex justify-between items-start mb-4">
                         <h3
                           className={cn(
-                            "font-headline text-2xl font-semibold text-on-surface transition-colors",
+                            "font-headline text-2xl font-bold text-on-surface transition-colors",
                             colors.hoverText
                           )}
                         >
@@ -354,7 +342,7 @@ export function Projects() {
                         </h3>
                         <div
                           className={cn(
-                            "w-10 h-10 rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110",
+                            "w-10 h-10 rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shrink-0 ml-4",
                             colors.iconBg
                           )}
                         >
