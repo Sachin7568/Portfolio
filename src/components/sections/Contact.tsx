@@ -50,27 +50,35 @@ export function Contact() {
     setStatus("loading");
 
     try {
-      // Use Web3Forms for easy, serverless email sending
+      // Use FormData instead of JSON to avoid CORS preflight blocks
+      const data = new FormData();
+      data.append("access_key", "97b13b11-1842-46c0-9c47-f949802b2321");
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("subject", formData.subject);
+      data.append("message", formData.message);
+
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
+        body: data,
         headers: {
-          "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          access_key: "97b13b11-1842-46c0-9c47-f949802b2321",
-          ...formData,
-        }),
       });
 
-      const json = await response.json();
+      let result;
+      try {
+        result = await response.json();
+      } catch (parseError) {
+        console.error("Failed to parse Web3Forms response (possibly blocked):", parseError);
+      }
 
-      if (response.status === 200) {
+      if (response.ok && (!result || result.success !== false)) {
         setStatus("success");
         setFormData(initialFormData);
         setTimeout(() => setStatus("idle"), 5000);
       } else {
-        console.error("Form submission failed:", json);
+        console.error("Form submission failed:", result || response.statusText);
         setStatus("error");
         setTimeout(() => setStatus("idle"), 5000);
       }
