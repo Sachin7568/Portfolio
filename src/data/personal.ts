@@ -1,19 +1,21 @@
 export const personal = {
   name: "Sachin",
-  role: "Computer Science Engineer",
+  role: "Full-Stack Software Engineer & CS Graduate",
   location: "Haryana, India",
-  email: "sachinvr10094@gmail.com",
-  tagline: "Computer Science Engineering graduate skilled in full-stack web development",
-  description:
-    "Computer Science Engineering graduate skilled in ReactJS, JavaScript, Python, C++, MySQL, and full-stack web development. Eager to contribute to innovative software projects while continuously learning and growing as a developer.",
+  email: "Sachinvr10094@gmail.com",
+  phone: "+91-7568330645",
+  tagline: "Building responsive, data-driven web applications & scalable software solutions.",
+  objective:
+    "Results-driven Computer Science graduate with a strong foundation in full-stack web development. Builds responsive, data-driven applications with the MERN stack, Python, and PostgreSQL, deployed with Docker.",
   about: [
-    "I am a dedicated Computer Science Engineering graduate with a strong foundation in core computer science principles including DSA, DBMS, OOP, and operating systems.",
-    "I specialize in building full-stack web applications using technologies like ReactJS, Python (FastAPI), C++, and MySQL. With hands-on experience using Git, GitHub, and Docker, I am well-equipped for collaborative development and passionate about creating scalable software solutions.",
+    "I am a results-driven Computer Science graduate with a strong foundation in full-stack web development.",
+    "I build responsive, data-driven applications using the MERN stack, Python, FastAPI, and PostgreSQL, containerized and deployed with Docker and modern cloud tools."
   ],
   social: {
     github: "https://github.com/Sachin7568",
-    linkedin: "https://www.linkedin.com/in/sachin-kumar-103762218",
-    email: "mailto:sachinvr10094@gmail.com",
+    linkedin: "https://www.linkedin.com/in/sachin-kumar-103762218/",
+    email: "mailto:Sachinvr10094@gmail.com",
+    phone: "tel:+917568330645",
   },
   resumeUrl: "/resume.pdf",
 } as const;

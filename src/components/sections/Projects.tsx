@@ -1,60 +1,27 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { projects, allTechnologies, type Project } from "@/data/projects";
+import { projects, type Project } from "@/data/projects";
 import {
   ExternalLink,
-  Search,
-  X,
-  CheckCircle,
-  Gamepad2,
-  Crown,
-  Sun,
-  Coins,
-  Box,
+  CheckCircle2,
+  Boxes,
   Users,
-  StickyNote,
-  Briefcase
+  Wallet,
+  FileText,
+  X,
+  ArrowUpRight
 } from "lucide-react";
 import { Github } from "@/components/ui/Icons";
-import { cn } from "@/lib/utils";
-import { Tilt3D } from "@/components/ui/Tilt3D";
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Gamepad2,
-  Crown,
-  Sun,
-  Coins,
-  Box,
-  Users,
-  StickyNote,
-  Briefcase,
-};
 
-const colorMap = {
-  primary: {
-    barBg: "bg-primary group-hover:bg-[#003ea8]",
-    hoverText: "group-hover:text-primary",
-    iconBg: "bg-primary/10 text-primary",
-    checkColor: "text-primary",
-    milestoneHover: "group-hover:border-primary group-hover:text-primary",
-  },
-  tertiary: {
-    barBg: "bg-tertiary group-hover:bg-[#004e5c]",
-    hoverText: "group-hover:text-tertiary",
-    iconBg: "bg-tertiary/10 text-tertiary",
-    checkColor: "text-tertiary",
-    milestoneHover: "group-hover:border-tertiary group-hover:text-tertiary",
-  },
-  secondary: {
-    barBg: "bg-secondary group-hover:bg-[#3c475a]",
-    hoverText: "group-hover:text-secondary",
-    iconBg: "bg-secondary/10 text-secondary",
-    checkColor: "text-secondary",
-    milestoneHover: "group-hover:border-secondary group-hover:text-secondary",
-  },
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Boxes,
+  Users,
+  Wallet,
+  FileText,
 };
 
 function ProjectModal({
@@ -64,98 +31,116 @@ function ProjectModal({
   project: Project;
   onClose: () => void;
 }) {
-  const Icon = iconMap[project.icon] || Gamepad2;
-  const colors = colorMap[project.color];
+  const Icon = iconMap[project.icon] || Boxes;
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/90 md:bg-black/60 md:backdrop-blur-sm"
+      transition={{ duration: 0.15 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs"
       onClick={onClose}
       role="dialog"
       aria-label={`${project.title} details`}
       aria-modal="true"
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        initial={{ opacity: 0, scale: 0.96, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 10 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        exit={{ opacity: 0, scale: 0.96, y: 10 }}
+        transition={{ duration: 0.15, ease: "easeOut" }}
         onClick={(e) => e.stopPropagation()}
-        className="glass dark:bg-zinc-950/95 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-outline-variant/30"
+        className="bg-[var(--color-bg-1)] border border-[var(--color-border)] rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 relative shadow-2xl"
       >
-        {/* Header bar */}
-        <div className={cn("h-2 rounded-t-2xl", colors.barBg.split(" ")[0])} />
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 p-2 rounded-lg bg-[var(--color-bg-2)] border border-[var(--color-border)] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors cursor-pointer"
+          aria-label="Close modal"
+        >
+          <X className="w-4 h-4" />
+        </button>
 
-        <div className="p-8">
-          {/* Title row */}
-          <div className="flex justify-between items-start mb-6">
-            <div className="flex items-start gap-4">
-              <div className={cn("w-12 h-12 rounded-full flex items-center justify-center", colors.iconBg)}>
-                <Icon className="w-6 h-6" />
-              </div>
-              <div className="flex items-center gap-4">
-                <div>
-                  <h3 className="font-headline text-2xl font-semibold text-on-surface">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-on-surface-variant">{project.year}</p>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={onClose}
-              className="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant"
-              aria-label="Close modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
+        <div className="flex items-start gap-4 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-[var(--color-bg-2)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent)] shrink-0">
+            <Icon className="w-5 h-5" />
           </div>
+          <div>
+            <span className="font-code text-xs font-medium text-[var(--color-ink-3)]">
+              {project.date}
+            </span>
+            <h3 className="font-headline text-xl sm:text-2xl font-bold text-[var(--color-ink)]">
+              {project.title}
+            </h3>
+            {project.subtitle && (
+              <p className="font-code text-xs text-[var(--color-ink-2)] mt-0.5">
+                {project.subtitle}
+              </p>
+            )}
+          </div>
+        </div>
 
-          {/* Description */}
-          <p className="text-on-surface-variant leading-relaxed mb-6">
-            {project.longDescription}
-          </p>
+        <p className="font-body text-sm text-[var(--color-ink-2)] mb-6 leading-relaxed">
+          {project.description}
+        </p>
 
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-2 mb-6">
+        {/* Technologies Badges */}
+        <div className="mb-6">
+          <h4 className="font-headline text-xs uppercase tracking-wider text-[var(--color-ink-3)] mb-2.5">
+            Tech Stack
+          </h4>
+          <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 bg-surface-container text-on-surface font-body text-xs font-semibold rounded-lg border border-outline-variant/30"
+                className="px-2.5 py-1 rounded-md bg-[var(--color-bg-2)] border border-[var(--color-border)] font-code text-xs text-[var(--color-ink)]"
               >
                 {tech}
               </span>
             ))}
           </div>
+        </div>
 
-          {/* Highlights */}
-          <ul className="space-y-3 mb-4">
-            {project.highlights.map((highlight, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant">
-                <CheckCircle className={cn("w-4 h-4 mt-0.5 shrink-0", colors.checkColor)} />
-                {highlight}
-              </li>
+        {/* Key Highlights */}
+        <div className="mb-6">
+          <h4 className="font-headline text-xs uppercase tracking-wider text-[var(--color-ink-3)] mb-2.5">
+            Key Features & Highlights
+          </h4>
+          <div className="space-y-2">
+            {project.highlights.map((highlight, idx) => (
+              <div
+                key={idx}
+                className="flex items-start gap-2.5 p-2.5 rounded-lg bg-[var(--color-bg-2)] border border-[var(--color-border)] text-xs text-[var(--color-ink-2)] leading-relaxed"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-accent)] shrink-0 mt-0.5" />
+                <span>{highlight}</span>
+              </div>
             ))}
-          </ul>
+          </div>
+        </div>
 
-          {/* Links */}
-          {(project.github || project.demo) && (
-            <div className="flex gap-4 mt-8 pt-6 border-t border-outline-variant/30">
-              {project.github && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 glass dark:bg-zinc-800/50 hover:bg-surface-container-highest text-on-surface font-semibold text-sm rounded-xl transition-all duration-300 border border-outline-variant/30 hover:shadow-md hover:-translate-y-0.5">
-                  <Github className="w-4 h-4" /> View Source
-                </a>
-              )}
-              {project.demo && (
-                <a href={project.demo} target="_blank" rel="noopener noreferrer" className={cn("flex items-center gap-2 px-6 py-3 text-white font-bold text-sm rounded-xl transition-all duration-300 shadow-md hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:-translate-y-0.5", colors.barBg.split(" ")[0])}>
-                  <ExternalLink className="w-4 h-4" /> Live Demo
-                </a>
-              )}
-            </div>
+        {/* Links */}
+        <div className="flex flex-wrap gap-3 pt-4 border-t border-[var(--color-border)]">
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--color-accent)] text-[var(--color-bg-0)] font-body text-xs font-semibold hover:bg-[var(--color-accent-dim)] transition-colors"
+          >
+            <Github className="w-4 h-4" />
+            GitHub Repository
+          </a>
+
+          {project.demo && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--color-bg-2)] border border-[var(--color-border)] text-[var(--color-ink)] font-body text-xs font-semibold hover:border-[var(--color-border-active)] hover:text-[var(--color-accent)] transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Live Demo
+            </a>
           )}
         </div>
       </motion.div>
@@ -164,277 +149,118 @@ function ProjectModal({
 }
 
 export function Projects() {
-  const [filter, setFilter] = useState<string>("All");
-  const [yearFilter, setYearFilter] = useState<string>("All");
-  const [search, setSearch] = useState("");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const allYears = Array.from(new Set(projects.map(p => String(p.year)))).sort((a,b) => b.localeCompare(a));
-
-  const filteredProjects = projects.filter((project) => {
-    const matchesFilter = filter === "All" || project.technologies.includes(filter);
-    const matchesYear = yearFilter === "All" || String(project.year) === yearFilter;
-    const matchesSearch =
-      search === "" ||
-      project.title.toLowerCase().includes(search.toLowerCase()) ||
-      project.description.toLowerCase().includes(search.toLowerCase()) ||
-      project.technologies.some((t) => t.toLowerCase().includes(search.toLowerCase()));
-    return matchesFilter && matchesYear && matchesSearch;
-  });
-
-  const handleCloseModal = useCallback(() => setSelectedProject(null), []);
-
-  // Close modal on Escape is handled elsewhere
-
   return (
-    <section 
-      id="projects" 
-      className="py-12 md:py-32 border-b border-outline-variant/50 relative overflow-hidden"
+    <section
+      id="projects"
+      className="py-12 md:py-20 border-b border-[var(--color-border)] relative"
       aria-labelledby="projects-heading"
     >
-      {/* 3D Background Orbs */}
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-tertiary/10 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10" />
-
-      <div className="max-w-[1200px] mx-auto px-4 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <AnimatedSection>
-          <SectionHeader title="Featured Projects" id="projects-heading" />
+          <SectionHeader title="Featured Projects" id="projects-heading" align="left" />
         </AnimatedSection>
 
-        {/* Filters & Search */}
-        <AnimatedSection delay={0.2}>
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
-            {/* Search */}
-            <div className="flex justify-start w-full md:w-auto">
-            <div className="relative h-10 w-full md:w-64 rounded-full bg-[var(--bg-1)] border border-[var(--b1)] flex items-center shadow-sm backdrop-blur-md">
-              <Search className="absolute left-3 w-4 h-4 text-[var(--t2)] pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search projects..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full h-full bg-transparent text-[var(--t1)] text-sm font-body placeholder:text-[var(--t3)] focus:outline-none pl-10 pr-4"
-                aria-label="Search projects"
-              />
-            </div>
-          </div>
-
-          {/* Filter Pills - Container */}
-          <div className="flex flex-col items-start md:items-end gap-3 flex-1">
-            {/* Tech Filter */}
-            <div className="flex flex-wrap gap-2 justify-start md:justify-end">
-              {["All", ...allTechnologies].map((tech) => {
-                const isActive = filter === tech;
-                return (
-                  <button
-                    key={tech}
-                    onClick={() => setFilter(tech)}
-                    className={cn(
-                      "relative px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 border border-transparent",
-                      isActive
-                        ? "text-[var(--accent)]"
-                        : "text-[var(--t2)] hover:text-[var(--accent)] hover:border-[var(--b2)]"
-                    )}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="filter-pill-tech"
-                        className="absolute inset-0 bg-[var(--accent-2)] border border-[var(--accent-3)] rounded-full -z-10"
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    {tech}
-                  </button>
-                );
-              })}
-            </div>
-            
-            {/* Year Filter */}
-            <div className="flex flex-wrap gap-2 justify-start md:justify-end">
-              {["All", ...allYears].map((year) => {
-                const isActive = yearFilter === year;
-                return (
-                  <button
-                    key={year}
-                    onClick={() => setYearFilter(year)}
-                    className={cn(
-                      "relative px-3 py-1 rounded-full text-xs font-medium transition-colors duration-200 border border-transparent",
-                      isActive
-                        ? "text-[var(--t1)]"
-                        : "text-[var(--t3)] hover:text-[var(--t1)] hover:border-[var(--b2)]"
-                    )}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="filter-pill-year"
-                        className="absolute inset-0 bg-[var(--b2)] rounded-full -z-10"
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    {year}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </AnimatedSection>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-16 md:mb-20">
-        <AnimatePresence mode="popLayout">
-          {filteredProjects.map((project, index) => {
-            const Icon = iconMap[project.icon] || Gamepad2;
-            const colors = colorMap[project.color];
+        {/* Stacked Full-Width Projects */}
+        <div className="space-y-6">
+          {projects.map((project, index) => {
+            const Icon = iconMap[project.icon] || Boxes;
 
             return (
-              <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="h-full"
-              >
-                <Tilt3D tiltMaxAngleX={4} tiltMaxAngleY={4} scale={1.02} className="h-full">
-                  <div
-                    className="project-card bg-[var(--bg-1)] backdrop-blur-md border border-[var(--b1)] rounded-[20px] overflow-hidden flex flex-col group transition-all duration-500 cursor-pointer h-full hover:-translate-y-2 hover:border-[var(--accent)] hover:shadow-[0_0_30px_var(--accent-2)]"
-                    onClick={() => setSelectedProject(project)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        setSelectedProject(project);
-                      }
-                    }}
-                    aria-label={`View details for ${project.title}`}
-                  >
-                    {/* Color bar */}
-                    <div
-                      className={cn(
-                        "h-2 transition-all duration-500 opacity-80 group-hover:opacity-100 group-hover:h-3",
-                        colors.barBg
-                      )}
-                    />
-                    <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                    <div className="p-5 md:p-8 flex-1 flex flex-col">
-                      {/* Badges row */}
-                      <div className="flex justify-between items-center mb-4">
-                        <div className="flex gap-2 items-center">
-                          {project.year === 2026 && (
-                            <span className="px-2 py-1 bg-[var(--accent-2)] text-[var(--accent)] text-[10px] font-bold uppercase tracking-wider rounded-md border border-[var(--accent-3)] shadow-[0_0_10px_var(--accent-3)]">
-                              ★ Featured
+              <AnimatedSection key={project.id} delay={index * 0.08}>
+                <div
+                  onClick={() => setSelectedProject(project)}
+                  className="group bg-[var(--color-bg-1)] border border-[var(--color-border)] rounded-xl p-6 sm:p-8 hover:border-[var(--color-border-active)] transition-all cursor-pointer relative"
+                >
+                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                    <div className="flex items-start gap-3.5">
+                      <div className="w-10 h-10 rounded-lg bg-[var(--color-bg-2)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent)] shrink-0">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-code text-xs text-[var(--color-ink-3)]">
+                            {project.date}
+                          </span>
+                          {project.featured && (
+                            <span className="px-2 py-0.5 rounded text-[10px] font-code font-semibold uppercase bg-[var(--color-accent-wash)] text-[var(--color-accent)] border border-[var(--color-border-active)]">
+                              Featured
                             </span>
                           )}
                         </div>
-                        <span className="font-code text-xs text-on-surface-variant font-medium bg-surface-container-low px-2 py-1 rounded-md border border-outline-variant/30">
-                          {project.year}
-                        </span>
-                      </div>
-
-                      {/* Title row */}
-                      <div className="flex justify-between items-start mb-4">
-                        <h3
-                          className={cn(
-                            "font-headline text-xl md:text-2xl font-bold text-on-surface transition-colors",
-                            colors.hoverText
-                          )}
-                        >
-                          {project.title}
+                        <h3 className="font-headline font-bold text-xl text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors mt-0.5 flex items-center gap-1.5">
+                          <span>{project.title}</span>
+                          <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </h3>
-                        <div
-                          className={cn(
-                            "w-10 h-10 rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shrink-0 ml-4",
-                            colors.iconBg
-                          )}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 self-start" onClick={(e) => e.stopPropagation()}>
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-lg bg-[var(--color-bg-2)] border border-[var(--color-border)] text-[var(--color-ink-2)] hover:text-[var(--color-accent)] hover:border-[var(--color-border-active)] transition-colors"
+                        aria-label="View Source on GitHub"
+                      >
+                        <Github className="w-4 h-4" />
+                      </a>
+                      {project.demo && (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-lg bg-[var(--color-bg-2)] border border-[var(--color-border)] text-[var(--color-ink-2)] hover:text-[var(--color-accent)] hover:border-[var(--color-border-active)] transition-colors"
+                          aria-label="View Live Demo"
                         >
-                          <Icon className="w-5 h-5 drop-shadow-sm" />
-                        </div>
-                      </div>
-
-                      {/* Description */}
-                      <p className="font-body text-base text-on-surface-variant mb-10 line-clamp-2">
-                        {project.description}
-                      </p>
-
-                      {/* Technologies */}
-                      <div className="flex flex-wrap gap-2 mb-8 relative z-10">
-                        {project.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1.5 bg-surface-container-low/50 dark:bg-zinc-800/40 text-on-surface font-body text-xs font-semibold rounded-lg border border-outline-variant/30 backdrop-blur-md"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Highlights */}
-                      <ul className="font-body text-sm text-on-surface-variant list-none space-y-2 mb-6 flex-1">
-                        {project.highlights.slice(0, 2).map((h, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <CheckCircle
-                              className={cn(
-                                "w-4 h-4 mt-0.5 shrink-0",
-                                colors.checkColor
-                              )}
-                            />
-                            {h}
-                          </li>
-                        ))}
-                      </ul>
-
-                      {/* Links */}
-                      {(project.github || project.demo) && (
-                        <div className="flex gap-4 mt-auto pt-6 border-t border-outline-variant/30 relative z-10" onClick={(e) => e.stopPropagation()}>
-                          {project.github && (
-                            <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-all duration-300 rounded-xl bg-surface-container-low/30 hover:bg-surface-container border border-outline-variant/30 hover:shadow-md hover:-translate-y-0.5">
-                              <Github className="w-4 h-4" /> Code
-                            </a>
-                          )}
-                          {project.demo && (
-                            <a href={project.demo} target="_blank" rel="noopener noreferrer" className={cn("flex items-center gap-2 px-4 py-2 text-sm font-bold text-white transition-all duration-300 rounded-xl shadow-sm hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] hover:-translate-y-0.5", colors.barBg.split(" ")[0])}>
-                              <ExternalLink className="w-4 h-4" /> Live
-                            </a>
-                          )}
-                        </div>
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
                       )}
                     </div>
                   </div>
-                </Tilt3D>
-              </motion.div>
+
+                  <p className="font-body text-sm text-[var(--color-ink-2)] mb-5 max-w-3xl leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  {/* Highlights List */}
+                  <div className="space-y-1.5 mb-5">
+                    {project.highlights.map((bullet, i) => (
+                      <div key={i} className="flex items-start gap-2 text-xs text-[var(--color-ink-2)]">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-accent)] shrink-0 mt-0.5" />
+                        <span>{bullet}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Tech Stack Pills */}
+                  <div className="pt-4 border-t border-[var(--color-border)] flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2.5 py-1 rounded-md bg-[var(--color-bg-2)] border border-[var(--color-border)] font-code text-xs text-[var(--color-ink-2)]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </AnimatedSection>
             );
           })}
-        </AnimatePresence>
+        </div>
       </div>
 
-      {filteredProjects.length === 0 && (
-        <div className="text-center py-16 text-on-surface-variant">
-          <p className="text-lg">No projects match your search criteria.</p>
-          <button
-            onClick={() => {
-              setFilter("All");
-              setSearch("");
-            }}
-            className="mt-4 text-primary hover:underline font-semibold"
-          >
-            Clear filters
-          </button>
-        </div>
-      )}
-
-      {/* Project Modal */}
+      {/* Modal Dialog */}
       <AnimatePresence>
         {selectedProject && (
           <ProjectModal
             project={selectedProject}
-            onClose={handleCloseModal}
+            onClose={() => setSelectedProject(null)}
           />
         )}
       </AnimatePresence>
-      </div>
     </section>
   );
 }

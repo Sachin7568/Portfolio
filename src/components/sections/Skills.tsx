@@ -4,131 +4,117 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { skillCategories } from "@/data/skills";
-import { Code, Globe, Cpu, Brush, Wrench } from "lucide-react";
+import { skillCategories, allSkillsList } from "@/data/skills";
+import { Code, Globe, Server, Wrench, Palette, Cpu } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Tilt3D } from "@/components/ui/Tilt3D";
-
-const levelToWidth: Record<string, number> = {
-  Proficient: 88,
-  Advanced: 72,
-  Intermediate: 55,
-};
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Code,
   Globe,
-  Cpu,
-  Brush,
+  Server,
   Wrench,
+  Palette,
+  Cpu,
 };
 
 export function Skills() {
-  const [activeTab, setActiveTab] = useState(skillCategories[0].id);
+  const [activeTab, setActiveTab] = useState("all");
 
-  const activeCategory = skillCategories.find((c) => c.id === activeTab) || skillCategories[0];
+  const filteredCategories = activeTab === "all"
+    ? skillCategories
+    : skillCategories.filter((c) => c.id === activeTab);
 
   return (
     <section
       id="skills"
-      className="py-16 md:py-40 border-b border-outline-variant/50 relative overflow-hidden"
+      className="py-12 md:py-20 border-b border-[var(--color-border)] relative"
       aria-labelledby="skills-heading"
     >
-      {/* 3D Background Orbs */}
-      <div className="absolute top-1/4 right-0 w-80 h-80 bg-tertiary/10 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10" />
-
-      <div className="relative z-10 px-4">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <AnimatedSection>
-          <SectionHeader title="Technical Arsenal" id="skills-heading" />
+          <SectionHeader title="Technical Skills" id="skills-heading" align="left" />
         </AnimatedSection>
 
-        <AnimatedSection delay={0.2}>
-          <div className="flex justify-center mb-16 px-2 sm:px-4">
-            <div className="flex gap-1 sm:gap-2 p-1 sm:p-1.5 bg-[var(--bg-1)] backdrop-blur-md rounded-full border border-[var(--b1)] shadow-sm">
-              {skillCategories.map((category) => {
-                const isActive = activeTab === category.id;
-                const Icon = iconMap[category.icon] || Code;
-                
+        {/* Category Filter Pills */}
+        <AnimatedSection delay={0.1}>
+          <div className="flex flex-wrap items-center gap-2 mb-8">
+            <button
+              onClick={() => setActiveTab("all")}
+              className={cn(
+                "px-3.5 py-1.5 rounded-lg text-xs font-body font-semibold transition-colors border cursor-pointer active:scale-95",
+                activeTab === "all"
+                  ? "bg-[var(--color-accent)] text-[var(--color-bg-0)] border-[var(--color-accent)]"
+                  : "bg-[var(--color-bg-1)] text-[var(--color-ink-2)] border-[var(--color-border)] hover:text-[var(--color-ink)] hover:border-[var(--color-border-active)]"
+              )}
+            >
+              All Skills ({allSkillsList.length})
+            </button>
+
+            {skillCategories.map((category) => {
+              const isActive = activeTab === category.id;
+              const Icon = iconMap[category.icon] || Code;
+
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => setActiveTab(category.id)}
+                  className={cn(
+                    "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-body font-semibold transition-colors border cursor-pointer active:scale-95",
+                    isActive
+                      ? "bg-[var(--color-accent)] text-[var(--color-bg-0)] border-[var(--color-accent)]"
+                      : "bg-[var(--color-bg-1)] text-[var(--color-ink-2)] border-[var(--color-border)] hover:text-[var(--color-ink)] hover:border-[var(--color-border-active)]"
+                  )}
+                >
+                  <Icon className="w-3.5 h-3.5 shrink-0" />
+                  <span>{category.title}</span>
+                </button>
+              );
+            })}
+          </div>
+        </AnimatedSection>
+
+        {/* Flowing Skill Groups */}
+        <AnimatedSection delay={0.15}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="space-y-6"
+            >
+              {filteredCategories.map((cat) => {
+                const Icon = iconMap[cat.icon] || Code;
+
                 return (
-                  <button
-                    key={category.id}
-                    onClick={() => setActiveTab(category.id)}
-                    className={cn(
-                      "relative rounded-full text-[11px] sm:text-sm font-body font-semibold transition-all duration-300 whitespace-nowrap group flex items-center justify-center min-w-0 overflow-hidden",
-                      isActive ? "h-9 sm:h-10 w-[160px] sm:w-[200px] px-3 sm:px-4 text-[var(--bg)]" : "h-9 sm:h-10 w-9 sm:w-10 shrink-0 text-[var(--t2)] hover:text-[var(--t1)] hover:bg-[var(--bg-2)]"
-                    )}
-                    aria-label={category.title}
-                    title={category.title}
+                  <div
+                    key={cat.id}
+                    className="bg-[var(--color-bg-1)] border border-[var(--color-border)] rounded-xl p-5"
                   >
-                    {isActive && (
-                      <motion.div
-                        layoutId="skill-tab-indicator"
-                        className="absolute inset-0 bg-[var(--accent)] border border-[var(--b3)] rounded-full -z-10 shadow-[0_0_20px_var(--accent-2)]"
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    <div className="relative z-10 flex items-center min-w-0 justify-center">
-                      <Icon className={cn("shrink-0 transition-transform duration-300", isActive ? "w-3.5 h-3.5 sm:w-4 sm:h-4 scale-110" : "w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110")} />
-                      <span 
-                        className={cn(
-                          "transition-all duration-300 ease-in-out truncate",
-                          isActive ? "max-w-[150px] sm:max-w-[200px] opacity-100 ml-1.5 sm:ml-2" : "max-w-0 opacity-0 ml-0"
-                        )}
-                      >
-                        {category.title}
-                      </span>
+                    <div className="flex items-center gap-2 mb-4 text-[var(--color-ink)] font-headline font-bold text-sm">
+                      <Icon className="w-4 h-4 text-[var(--color-accent)]" />
+                      <h3>{cat.title}</h3>
                     </div>
-                  </button>
+
+                    <div className="flex flex-wrap gap-2">
+                      {cat.skills.map((skill) => (
+                        <div
+                          key={skill.name}
+                          className="px-3 py-1.5 rounded-lg bg-[var(--color-bg-2)] border border-[var(--color-border)] text-xs text-[var(--color-ink)] font-medium flex items-center gap-2 hover:border-[var(--color-border-active)] transition-colors"
+                        >
+                          <span>{skill.name}</span>
+                          <span className="text-[10px] font-code text-[var(--color-ink-3)]">
+                            {skill.category}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 );
               })}
-            </div>
-          </div>
-
-          <div className="max-w-3xl mx-auto bg-[var(--bg-1)] backdrop-blur-xl border border-[var(--b1)] rounded-2xl p-5 md:p-10 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="space-y-6"
-              >
-                {activeCategory.skills.map((skill, index) => {
-                  const percentage = levelToWidth[skill.level] || 50;
-                  return (
-                    <div key={skill.name} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 group">
-                      {/* Skill Name */}
-                      <div className="w-full sm:w-40 font-body text-sm font-semibold text-on-surface transition-colors group-hover:text-[var(--accent)]">
-                        {skill.name}
-                      </div>
-
-                      {/* Progress Bar Track */}
-                      <div className="w-full sm:flex-1 h-3 bg-[var(--bg-2)] border border-[var(--b1)] rounded-full overflow-hidden relative">
-                        <motion.div
-                          className="absolute top-0 left-0 h-full bg-[var(--accent)] rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${percentage}%` }}
-                          transition={{ duration: 0.8, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                      </div>
-
-                      {/* Level Label & Percentage */}
-                      <div className="flex justify-between sm:justify-end gap-6 w-full sm:w-32">
-                        <span className="font-code text-xs text-on-surface-variant uppercase tracking-wider">
-                          {skill.level}
-                        </span>
-                        <span className="font-code text-xs font-semibold text-on-surface">
-                          {percentage}%
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         </AnimatedSection>
       </div>
     </section>

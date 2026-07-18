@@ -15,33 +15,35 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="p-2 w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low hover:bg-surface-container-high transition-colors"
+        className="w-9 h-9 flex items-center justify-center rounded-lg bg-[var(--color-bg-1)] border border-[var(--color-border)] text-[var(--color-ink-2)]"
         aria-label="Toggle theme"
       >
-        <Sun className="w-5 h-5" />
+        <Sun className="w-4 h-4" />
       </button>
     );
   }
 
+  const isDark = theme === "dark";
+
   return (
     <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="relative p-2 w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors duration-300 overflow-hidden"
-      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="relative w-9 h-9 flex items-center justify-center rounded-lg bg-[var(--color-bg-1)] hover:bg-[var(--color-bg-2)] border border-[var(--color-border)] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors active:scale-95 overflow-hidden cursor-pointer"
+      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={theme === "dark" ? "dark" : "light"}
-          initial={{ y: -30, opacity: 0, rotate: -90 }}
-          animate={{ y: 0, opacity: 1, rotate: 0 }}
-          exit={{ y: 30, opacity: 0, rotate: 90 }}
-          transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
+          key={isDark ? "dark" : "light"}
+          initial={{ y: -16, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 16, opacity: 0 }}
+          transition={{ duration: 0.15, ease: "easeOut" }}
           className="absolute"
         >
-          {theme === "dark" ? (
-            <Sun className="w-5 h-5 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)] text-yellow-500" />
+          {isDark ? (
+            <Sun className="w-4 h-4 text-[var(--color-accent)]" />
           ) : (
-            <Moon className="w-5 h-5 drop-shadow-[0_0_8px_rgba(167,139,250,0.5)] text-secondary" />
+            <Moon className="w-4 h-4 text-[var(--color-accent)]" />
           )}
         </motion.div>
       </AnimatePresence>

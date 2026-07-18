@@ -3,151 +3,50 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* =============================================
-   Design Tokens — Sleek Modern Palette
+   Design Tokens - OKLCH Color Palette
    ============================================= */
 
 @theme {
-  /* --- Colors (Light) --- */
-  --color-primary: #3b82f6; /* Blue 500 */
-  --color-on-primary: #ffffff;
-  --color-primary-container: #dbeafe; /* Blue 100 */
-  --color-on-primary-container: #1e3a8a; /* Blue 900 */
+  --color-bg-0: oklch(0.08 0.01 264);
+  --color-bg-1: oklch(0.12 0.012 264);
+  --color-bg-2: oklch(0.17 0.014 264);
+  --color-bg-3: oklch(0.22 0.016 264);
   
-  --color-secondary: #8b5cf6; /* Violet 500 */
-  --color-on-secondary: #ffffff;
-  --color-secondary-container: #ede9fe; /* Violet 100 */
-  --color-on-secondary-container: #4c1d95; /* Violet 900 */
-
-  --color-tertiary: #06b6d4; /* Cyan 500 */
-  --color-on-tertiary: #ffffff;
-  --color-tertiary-container: #cffafe; /* Cyan 100 */
-  --color-on-tertiary-container: #164e63; /* Cyan 900 */
+  --color-accent: oklch(0.72 0.14 192);
+  --color-accent-dim: oklch(0.55 0.10 192);
+  --color-accent-wash: oklch(0.72 0.14 192 / 0.08);
   
-  --color-background: #ffffff;
-  --color-on-background: #09090b; /* Zinc 950 */
+  --color-ink: oklch(0.93 0.005 264);
+  --color-ink-2: oklch(0.65 0.02 264);
+  --color-ink-3: oklch(0.42 0.025 264);
   
-  --color-surface: #fafafa; /* Zinc 50 */
-  --color-surface-dim: #f4f4f5; /* Zinc 100 */
-  --color-surface-bright: #ffffff;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f4f4f5; /* Zinc 100 */
-  --color-surface-container: #e4e4e7; /* Zinc 200 */
-  --color-surface-container-high: #d4d4d8; /* Zinc 300 */
-  --color-surface-container-highest: #a1a1aa; /* Zinc 400 */
+  --color-border: oklch(0.20 0.012 264 / 0.6);
+  --color-border-active: oklch(0.72 0.14 192 / 0.4);
   
-  --color-on-surface: #09090b; /* Zinc 950 */
-  --color-on-surface-variant: #52525b; /* Zinc 600 */
-  
-  --color-outline: #71717a; /* Zinc 500 */
-  --color-outline-variant: #e4e4e7; /* Zinc 200 */
-  
-  --color-error: #ef4444; /* Red 500 */
-  --color-on-error: #ffffff;
-  --color-error-container: #fee2e2; /* Red 100 */
-  --color-on-error-container: #7f1d1d; /* Red 900 */
-
-  --color-surface-tint: #3b82f6;
-  --color-inverse-surface: #18181b;
-  --color-inverse-on-surface: #f4f4f5;
-  --color-inverse-primary: #60a5fa;
-  
-  /* --- Experimental UI/UX Tokens (Light) --- */
-  --bg:            #FFFFFF;
-  --bg-1:          #F4F4F5;
-  --bg-2:          #E4E4E7;
-  --bg-3:          #D4D4D8;
-  --accent:        #6366F1;
-  --accent-2:      rgba(99, 102, 241, 0.15);
-  --accent-3:      rgba(99, 102, 241, 0.06);
-  --t1:            #09090B;
-  --t2:            #52525B;
-  --t3:            #A1A1AA;
-  --b1:            rgba(0,0,0,0.15);
-  --b2:            rgba(0,0,0,0.25);
-  --b3:            rgba(99, 102, 241, 0.35);
-
-  --color-primary-fixed: #dbe1ff;
-  --color-primary-fixed-dim: #b4c5ff;
-  --color-secondary-fixed: #d8e3fb;
-  --color-secondary-fixed-dim: #bcc7de;
-  --color-tertiary-fixed: #acedff;
-  --color-tertiary-fixed-dim: #4cd7f6;
-  --color-on-primary-fixed: #00174b;
-  --color-on-primary-fixed-variant: #003ea8;
-  --color-on-secondary-fixed: #111c2d;
-  --color-on-secondary-fixed-variant: #3c475a;
-  --color-on-tertiary-fixed: #001f26;
-  --color-on-tertiary-fixed-variant: #004e5c;
-
-  /* --- Typography --- */
-  --font-headline: var(--next-font-headline), sans-serif;
-  --font-body: var(--next-font-body), sans-serif;
-  --font-code: var(--next-font-code), monospace;
+  --font-headline: var(--font-geist-sans), sans-serif;
+  --font-body: var(--font-geist-sans), sans-serif;
+  --font-code: var(--font-geist-mono), monospace;
 }
 
 /* =============================================
-   Dark Mode Overrides
+   Light Mode Theme
    ============================================= */
-@layer theme {
-  .dark {
-    --color-primary: #38bdf8; /* Sky 400 */
-    --color-on-primary: #0369a1; /* Sky 700 */
-    --color-primary-container: #0284c7; /* Sky 600 */
-    --color-on-primary-container: #e0f2fe; /* Sky 100 */
-    
-    --color-secondary: #a78bfa; /* Violet 400 */
-    --color-on-secondary: #5b21b6; /* Violet 800 */
-    --color-secondary-container: #7c3aed; /* Violet 600 */
-    --color-on-secondary-container: #ede9fe; /* Violet 100 */
-
-    --color-tertiary: #22d3ee; /* Cyan 400 */
-    --color-on-tertiary: #0e7490; /* Cyan 700 */
-    --color-tertiary-container: #0891b2; /* Cyan 600 */
-    --color-on-tertiary-container: #cffafe; /* Cyan 100 */
-
-    --color-background: #09090b; /* Zinc 950 */
-    --color-on-background: #fafafa; /* Zinc 50 */
-    
-    --color-surface: #09090b; /* Zinc 950 */
-    --color-surface-dim: #09090b; /* Zinc 950 */
-    --color-surface-bright: #18181b; /* Zinc 900 */
-    --color-surface-container-lowest: #000000; /* Deep black */
-    --color-surface-container-low: #18181b; /* Zinc 900 */
-    --color-surface-container: #27272a; /* Zinc 800 */
-    --color-surface-container-high: #3f3f46; /* Zinc 700 */
-    --color-surface-container-highest: #52525b; /* Zinc 600 */
-    
-    --color-on-surface: #fafafa; /* Zinc 50 */
-    --color-on-surface-variant: #a1a1aa; /* Zinc 400 */
-    
-    --color-outline: #52525b; /* Zinc 600 */
-    --color-outline-variant: #27272a; /* Zinc 800 */
-
-    --color-error: #f87171; /* Red 400 */
-    --color-on-error: #7f1d1d; /* Red 900 */
-    --color-error-container: #991b1b; /* Red 800 */
-    --color-on-error-container: #fee2e2; /* Red 100 */
-
-    --color-inverse-surface: #fafafa;
-    --color-inverse-on-surface: #18181b;
-    --color-inverse-primary: #0284c7;
-    --color-surface-tint: #38bdf8;
-
-    /* --- Experimental UI/UX Tokens (Dark) --- */
-    --bg:            #080810;
-    --bg-1:          #0F0F1A;
-    --bg-2:          #16162A;
-    --bg-3:          #1E1E35;
-    --accent:        #7C6EFA;
-    --accent-2:      rgba(124, 110, 250, 0.15);
-    --accent-3:      rgba(124, 110, 250, 0.06);
-    --t1:            #EEEEF5;
-    --t2:            #8888A8;
-    --t3:            #4A4A6A;
-    --b1:            rgba(255,255,255,0.06);
-    --b2:            rgba(255,255,255,0.12);
-    --b3:            rgba(124,110,250,0.35);
-  }
+.light {
+  --color-bg-0: oklch(0.985 0 0);
+  --color-bg-1: oklch(0.96 0.004 264);
+  --color-bg-2: oklch(0.92 0.006 264);
+  --color-bg-3: oklch(0.86 0.008 264);
+  
+  --color-accent: oklch(0.52 0.14 192);
+  --color-accent-dim: oklch(0.42 0.12 192);
+  --color-accent-wash: oklch(0.52 0.14 192 / 0.08);
+  
+  --color-ink: oklch(0.12 0.01 264);
+  --color-ink-2: oklch(0.40 0.02 264);
+  --color-ink-3: oklch(0.60 0.015 264);
+  
+  --color-border: oklch(0.85 0.005 264 / 0.8);
+  --color-border-active: oklch(0.52 0.14 192 / 0.5);
 }
 
 /* =============================================
@@ -158,95 +57,27 @@ html {
 }
 
 body {
-  background: var(--bg);
-  color: var(--t1);
+  background-color: var(--color-bg-0);
+  color: var(--color-ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: var(--color-primary-container);
-  color: var(--color-on-primary-container);
+  background-color: var(--color-accent-wash);
+  color: var(--color-accent);
 }
 
-/* Removed global *:focus-visible to prevent conflicting double-rings on inputs */
-
-/* =============================================
-   Custom Utility Classes (Premium UI)
-   ============================================= */
-.ambient-shadow {
-  transition: all 0.3s ease;
+h1, h2, h3 {
+  text-wrap: balance;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .ambient-shadow:hover {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-      0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    transform: translateY(-4px);
-  }
+p {
+  text-wrap: pretty;
 }
 
-.hero-bg {
-  position: relative;
-  z-index: 0;
-}
-.hero-bg::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  pointer-events: none;
-  top: -200px; left: -200px;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(124,110,250,0.12) 0%, transparent 65%);
-}
-.hero-bg::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  pointer-events: none;
-  bottom: -150px; right: -100px;
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(124,110,250,0.07) 0%, transparent 65%);
-}
-
-.project-card {
-  position: relative;
-  z-index: 1;
-}
-
-.project-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.project-card:hover::before {
-  opacity: 0.15;
-}
-
-.project-card:hover {
-  box-shadow: 0 0 30px rgba(56, 189, 248, 0.15);
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
-}
-
-.dark .glass {
-  background: rgba(24, 24, 27, 0.65);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-}
-
-/* Hide scrollbar for timeline */
+/* Hide scrollbar utility */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -255,15 +86,15 @@ body {
   scrollbar-width: none;
 }
 
-/* Skip to content link */
+/* Accessibility skip link */
 .skip-to-content {
   position: fixed;
   top: -100%;
   left: 16px;
   z-index: 100;
   padding: 12px 24px;
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background: var(--color-accent);
+  color: var(--color-bg-0);
   border-radius: 0 0 8px 8px;
   font-weight: 600;
   font-size: 14px;
@@ -273,10 +104,3 @@ body {
 .skip-to-content:focus {
   top: 0;
 }
-
-/* 
- * NOTE: The wildcard `* { transition: ... }` block was completely removed 
- * to fix the severe lagging during light/dark theme toggle.
- * Layout components will now use Tailwind's `transition-colors duration-500` 
- * directly on the elements that need it (like body, nav, etc).
- */

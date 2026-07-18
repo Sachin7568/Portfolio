@@ -1,43 +1,33 @@
 import type { Metadata } from "next";
-import { Syne, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { BackToTop } from "@/components/layout/BackToTop";
 import "./globals.css";
 
-const syne = Syne({
+const geistSans = Geist({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  variable: "--next-font-headline",
+  variable: "--font-geist-sans",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--next-font-body",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--next-font-code",
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Sachin | Computer Science Engineer & Software Developer",
   description:
-    "Portfolio of Sachin — a Computer Science Engineering graduate from Haryana, India specializing in ReactJS, JavaScript, C++, and Modern Web Development. Turning complex problems into elegant, scalable code.",
+    "Portfolio of Sachin, a Computer Science Engineering graduate from Haryana, India specializing in React, TypeScript, Python, and Modern Web Development.",
   keywords: [
     "Sachin",
     "Computer Science Engineer",
     "Software Developer",
-    "ReactJS",
+    "React",
     "JavaScript",
-    "C++",
-    "Java",
+    "Python",
     "Web Developer",
     "Portfolio",
     "Frontend Developer",
@@ -51,34 +41,18 @@ export const metadata: Metadata = {
     url: "https://sachin.dev",
     title: "Sachin | Computer Science Engineer & Software Developer",
     description:
-      "Portfolio of Sachin — CSE graduate specializing in ReactJS, JavaScript, C++, and Modern Web Development.",
+      "Portfolio of Sachin, CSE graduate specializing in React, TypeScript, Python, and Modern Web Development.",
     siteName: "Sachin.dev",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Sachin - Computer Science Engineer Portfolio",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sachin | Computer Science Engineer & Software Developer",
     description:
-      "Portfolio of Sachin — CSE graduate specializing in ReactJS, JavaScript, C++, and Modern Web Development.",
-    images: ["/og-image.png"],
+      "Portfolio of Sachin, CSE graduate specializing in React, TypeScript, Python, and Modern Web Development.",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
 };
 
@@ -90,11 +64,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} dark`}
+      style={{ colorScheme: "dark" }}
       suppressHydrationWarning
     >
       <head>
-        {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -104,23 +78,20 @@ export default function RootLayout({
               name: "Sachin",
               jobTitle: "Computer Science Engineer",
               description:
-                "Computer Science Engineering graduate specializing in ReactJS, JavaScript, C++, and Modern Web Development.",
+                "Computer Science Engineering graduate specializing in React, TypeScript, Python, and Modern Web Development.",
               url: "https://sachin.dev",
               sameAs: [
-                "https://github.com/sachin",
-                "https://linkedin.com/in/sachin",
+                "https://github.com/Sachin7568",
+                "https://www.linkedin.com/in/sachin-kumar-103762218/",
               ],
               knowsAbout: [
-                "ReactJS",
-                "JavaScript",
-                "C++",
-                "Java",
-                "HTML",
-                "CSS",
-                "MySQL",
-                "Git",
-                "Data Structures",
-                "Algorithms",
+                "React",
+                "TypeScript",
+                "Python",
+                "FastAPI",
+                "Docker",
+                "PostgreSQL",
+                "MongoDB",
               ],
               alumniOf: {
                 "@type": "EducationalOrganization",
@@ -135,9 +106,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-background text-on-background font-body antialiased transition-colors duration-500">
+      <body className="bg-bg-0 text-ink font-body antialiased selection:bg-accent-wash selection:text-accent">
         <ThemeProvider>
-          {/* Skip to content — accessibility */}
           <a href="#main-content" className="skip-to-content">
             Skip to main content
           </a>

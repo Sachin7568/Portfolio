@@ -3,106 +3,80 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { education } from "@/data/education";
-import { GraduationCap, BookOpen, PenTool } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Tilt3D } from "@/components/ui/Tilt3D";
-
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  GraduationCap,
-  BookOpen,
-  PenTool,
-};
-
-const colorMap = {
-  primary: {
-    iconBg: "bg-primary-container text-on-primary-container",
-    decorBg: "bg-primary/5",
-    textColor: "text-primary",
-  },
-  tertiary: {
-    iconBg: "bg-tertiary-container text-on-tertiary-container",
-    decorBg: "bg-tertiary/5",
-    textColor: "text-tertiary",
-  },
-  secondary: {
-    iconBg: "bg-secondary-container text-on-secondary-container",
-    decorBg: "bg-secondary/5",
-    textColor: "text-secondary",
-  },
-};
+import { GraduationCap, MapPin, Calendar, CheckCircle2 } from "lucide-react";
 
 export function Education() {
+  const edu = education[0];
+
   return (
     <section
       id="education"
-      className="py-12 md:py-24 border-b border-outline-variant/50 relative overflow-hidden"
+      className="py-12 md:py-20 border-b border-[var(--color-border)] relative"
       aria-labelledby="education-heading"
     >
-      {/* 3D Background Orbs */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-secondary/10 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10" />
-
-      <div className="max-w-[1200px] mx-auto relative z-10 px-4">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <AnimatedSection>
-          <SectionHeader title="Education" id="education-heading" />
+          <SectionHeader title="Education" id="education-heading" align="left" />
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {education.map((edu, index) => {
-            const Icon = iconMap[edu.icon] || GraduationCap;
-            const colors = colorMap[edu.color];
+        <AnimatedSection delay={0.1}>
+          <div className="bg-[var(--color-bg-1)] border border-[var(--color-border)] rounded-xl p-6 sm:p-8">
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[var(--color-bg-2)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent)] shrink-0">
+                  <GraduationCap className="w-5 h-5" />
+                </div>
 
-            return (
-              <AnimatedSection key={edu.id} delay={index * 0.15}>
-                <Tilt3D tiltMaxAngleX={4} tiltMaxAngleY={4} scale={1.02} className="h-full">
-                  <div className="bg-[var(--bg-1)] backdrop-blur-md border border-[var(--b1)] rounded-2xl p-6 md:p-10 relative overflow-hidden group h-full hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] transition-all duration-500">
-                    {/* Decorative corner */}
-                    <div
-                      className={cn(
-                        "absolute top-0 right-0 w-32 h-32 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500",
-                        colors.decorBg
-                      )}
-                    />
+                <div>
+                  <h3 className="font-headline text-xl sm:text-2xl font-bold text-[var(--color-ink)]">
+                    {edu.title}
+                  </h3>
+                  <p className="font-body text-base font-semibold text-[var(--color-accent)] mt-0.5">
+                    {edu.institution}
+                  </p>
 
-                    {/* Icon */}
-                    <div
-                      className={cn(
-                        "flex items-center justify-center w-14 h-14 rounded-xl mb-6 relative z-10",
-                        colors.iconBg
-                      )}
-                    >
-                      <Icon className="w-8 h-8" />
-                    </div>
-
-                    {/* Content */}
-                    <h3 className="font-headline text-xl md:text-2xl font-semibold text-on-surface mb-2 relative z-10">
-                      {edu.title}
-                    </h3>
-                    <p
-                      className={cn(
-                        "font-body text-base font-semibold mb-4 relative z-10",
-                        colors.textColor
-                      )}
-                    >
-                      {edu.institution}
-                    </p>
-
-                    {edu.dates && (
-                      <p className="text-sm text-on-surface-variant mb-4 relative z-10">
-                        {edu.dates}
-                      </p>
-                    )}
-
-                    <div className="inline-block bg-surface-container-high px-4 py-2 rounded-lg font-body text-sm font-semibold tracking-[0.02em] text-on-surface relative z-10">
-                      {edu.gradeLabel}:{" "}
-                      <span className="font-bold">{edu.gradeValue}</span>
-                    </div>
+                  <div className="flex flex-wrap items-center gap-4 mt-3 text-xs text-[var(--color-ink-2)] font-code">
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-[var(--color-accent)]" />
+                      {edu.dates}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-[var(--color-accent)]" />
+                      {edu.location}
+                    </span>
                   </div>
-                </Tilt3D>
-              </AnimatedSection>
-            );
-          })}
-        </div>
+                </div>
+              </div>
+
+              {/* Score Badge */}
+              <div className="bg-[var(--color-bg-2)] border border-[var(--color-border)] rounded-lg px-4 py-3 text-center shrink-0 md:min-w-[130px]">
+                <span className="block text-[11px] font-code uppercase text-[var(--color-ink-3)] tracking-wider">
+                  CGPA
+                </span>
+                <span className="font-headline text-xl sm:text-2xl font-bold text-[var(--color-ink)]">
+                  {edu.gradeValue}
+                </span>
+              </div>
+            </div>
+
+            {/* Highlights */}
+            {edu.highlights && (
+              <div className="mt-6 pt-6 border-t border-[var(--color-border)]">
+                <h4 className="font-headline text-xs uppercase tracking-wider text-[var(--color-ink-3)] mb-3">
+                  Key Focus & Foundation
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {edu.highlights.map((item, index) => (
+                    <div key={index} className="flex items-start gap-2 text-xs text-[var(--color-ink-2)] leading-relaxed">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-accent)] shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );

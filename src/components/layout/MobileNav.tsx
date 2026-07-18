@@ -18,7 +18,6 @@ export function MobileNav() {
 
   const close = useCallback(() => setIsOpen(false), []);
 
-  // Lock body scroll when open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -30,7 +29,6 @@ export function MobileNav() {
     };
   }, [isOpen]);
 
-  // Close on escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
@@ -47,21 +45,20 @@ export function MobileNav() {
       if (target) {
         target.scrollIntoView({ behavior: "smooth" });
       }
-    }, 300);
+    }, 200);
   };
 
   return (
     <>
-      {/* Mobile Header */}
-      <div className="md:hidden flex justify-between items-center p-4 border-b border-outline-variant bg-surface/90 backdrop-blur-sm sticky top-0 z-40">
-        <span className="font-headline text-2xl font-bold text-primary">
-          Sachin.dev
+      <div className="md:hidden flex justify-between items-center px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-bg-0)] sticky top-0 z-40">
+        <span className="font-headline text-lg font-bold text-[var(--color-ink)]">
+          Sachin<span className="text-[var(--color-accent)]">.dev</span>
         </span>
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <button
             onClick={() => setIsOpen(true)}
-            className="text-on-surface-variant hover:text-primary p-2 bg-surface-container-low rounded-lg transition-colors"
+            className="p-2 rounded-lg bg-[var(--color-bg-1)] border border-[var(--color-border)] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
             aria-label="Open navigation menu"
           >
             <Menu className="w-5 h-5" />
@@ -72,58 +69,53 @@ export function MobileNav() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={close}
-              className="md:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+              className="md:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs"
               aria-hidden="true"
             />
 
-            {/* Drawer */}
             <motion.nav
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="md:hidden fixed inset-y-0 right-0 z-50 flex flex-col w-72 bg-surface-container  shadow-2xl"
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="md:hidden fixed inset-y-0 right-0 z-50 flex flex-col w-72 bg-[var(--color-bg-1)] border-l border-[var(--color-border)] shadow-2xl"
               role="dialog"
               aria-label="Navigation menu"
             >
-              <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface">
+              <div className="p-5 border-b border-[var(--color-border)] flex justify-between items-center bg-[var(--color-bg-0)]">
                 <div>
-                  <h2 className="font-headline text-2xl font-bold text-primary dark:text-primary-fixed">
+                  <h2 className="font-headline text-lg font-bold text-[var(--color-ink)]">
                     Sachin
                   </h2>
-                  <p className="text-sm text-on-surface-variant">
+                  <p className="text-xs text-[var(--color-ink-2)]">
                     Computer Science Engineer
                   </p>
                 </div>
                 <button
                   onClick={close}
-                  className="text-on-surface-variant hover:text-primary p-2 transition-colors"
+                  className="text-[var(--color-ink-2)] hover:text-[var(--color-ink)] p-2 transition-colors"
                   aria-label="Close navigation menu"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto py-4">
-                {navLinks.map((link, i) => (
-                  <motion.a
+              <div className="flex-1 overflow-y-auto py-2">
+                {navLinks.map((link) => (
+                  <a
                     key={link.href}
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + i * 0.05 }}
-                    className="flex items-center gap-4 text-on-surface-variant dark:text-surface-variant px-6 py-6 hover:bg-surface-container-high dark:hover:bg-surface-variant font-body text-sm font-semibold tracking-[0.02em] transition-colors"
+                    className="flex items-center gap-3 text-[var(--color-ink-2)] hover:text-[var(--color-accent)] hover:bg-[var(--color-bg-2)] px-6 py-4 font-body text-sm font-medium transition-colors"
                   >
-                    <link.icon className="w-5 h-5" />
+                    <link.icon className="w-4 h-4" />
                     {link.label}
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </motion.nav>

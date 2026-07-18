@@ -1,7 +1,8 @@
 export interface Skill {
   name: string;
-  level: string;
-  percentage: number;
+  category: string;
+  icon?: string;
+  tag?: string;
 }
 
 export interface SkillCategory {
@@ -9,65 +10,85 @@ export interface SkillCategory {
   title: string;
   icon: string;
   color: "primary" | "tertiary" | "secondary";
-  type: "progress" | "badge";
   skills: Skill[];
 }
 
 export const skillCategories: SkillCategory[] = [
   {
     id: "languages",
-    title: "Languages & Web Tech",
+    title: "Programming Languages",
     icon: "Code",
     color: "primary",
-    type: "badge",
     skills: [
-      { name: "ReactJS", level: "Proficient", percentage: 0 },
-      { name: "JavaScript", level: "Proficient", percentage: 0 },
-      { name: "Python", level: "Advanced", percentage: 0 },
-      { name: "C++", level: "Advanced", percentage: 0 },
-      { name: "HTML/CSS", level: "Proficient", percentage: 0 },
-      { name: "MySQL", level: "Advanced", percentage: 0 },
+      { name: "Python", category: "Backend & Data" },
+      { name: "JavaScript", category: "Full-Stack Development" },
+      { name: "TypeScript", category: "Type-Safe Web Apps" },
     ],
   },
   {
-    id: "tools",
-    title: "Tools & Platforms",
-    icon: "Wrench",
-    color: "tertiary",
-    type: "badge",
+    id: "frontend",
+    title: "Frontend & UI",
+    icon: "Globe",
+    color: "primary",
     skills: [
-      { name: "Git/GitHub", level: "Proficient", percentage: 0 },
-      { name: "Docker", level: "Intermediate", percentage: 0 },
-      { name: "Vercel", level: "Advanced", percentage: 0 },
-      { name: "VS Code", level: "Proficient", percentage: 0 },
-      { name: "Figma/Canva", level: "Intermediate", percentage: 0 },
-      { name: "DaVinci Resolve", level: "Intermediate", percentage: 0 },
+      { name: "ReactJS", category: "Single Page Apps" },
+      { name: "Tailwind CSS", category: "Modern Styling" },
+      { name: "HTML5", category: "Semantic Markup" },
+      { name: "CSS3", category: "Layout & Animations" },
+    ],
+  },
+  {
+    id: "backend-db",
+    title: "Backend & Databases",
+    icon: "Server",
+    color: "tertiary",
+    skills: [
+      { name: "Node.js", category: "Backend Runtime" },
+      { name: "Express.js", category: "REST APIs" },
+      { name: "FastAPI", category: "High Performance APIs" },
+      { name: "PostgreSQL", category: "Relational Database" },
+      { name: "MongoDB", category: "Document Store" },
+      { name: "MySQL", category: "Relational Database" },
+    ],
+  },
+  {
+    id: "devops-tools",
+    title: "DevOps & Tools",
+    icon: "Wrench",
+    color: "secondary",
+    skills: [
+      { name: "Docker", category: "Containerization" },
+      { name: "Git", category: "Version Control" },
+      { name: "GitHub", category: "Collaboration" },
+      { name: "Linux (Ubuntu)", category: "OS Environment" },
+      { name: "Vercel", category: "Cloud Hosting" },
+      { name: "VS Code", category: "Primary IDE" },
+    ],
+  },
+  {
+    id: "design-media",
+    title: "Design & Multimedia",
+    icon: "Palette",
+    color: "primary",
+    skills: [
+      { name: "Figma", category: "UI/UX Prototyping" },
+      { name: "Canva", category: "Visual Assets" },
+      { name: "DaVinci Resolve", category: "Video Production" },
     ],
   },
   {
     id: "core-cs",
-    title: "Computer Science",
+    title: "Core CS Fundamentals",
     icon: "Cpu",
-    color: "secondary",
-    type: "badge",
+    color: "tertiary",
     skills: [
-      { name: "DSA", level: "Proficient", percentage: 0 },
-      { name: "DBMS", level: "Proficient", percentage: 0 },
-      { name: "OOPs", level: "Proficient", percentage: 0 },
-      { name: "Operating Systems", level: "Advanced", percentage: 0 },
-      { name: "Computer Network", level: "Intermediate", percentage: 0 },
-    ],
-  },
-  {
-    id: "styling",
-    title: "Styling & UI",
-    icon: "Brush",
-    color: "primary",
-    type: "badge",
-    skills: [
-      { name: "Tailwind CSS", level: "Proficient", percentage: 0 },
-      { name: "Framer Motion", level: "Advanced", percentage: 0 },
-      { name: "Vanilla CSS", level: "Proficient", percentage: 0 },
+      { name: "DSA", category: "Data Structures & Algorithms" },
+      { name: "OOP", category: "Object-Oriented Programming" },
+      { name: "DBMS", category: "Database Management Systems" },
+      { name: "OS", category: "Operating System Principles" },
+      { name: "Computer Networks", category: "Network Protocols & Architecture" },
     ],
   },
 ];
+
+export const allSkillsList = skillCategories.flatMap((c) => c.skills);

@@ -3,62 +3,63 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { personal } from "@/data/personal";
-import { Tilt3D } from "@/components/ui/Tilt3D";
-import { Code2, Database, Terminal, Layers } from "lucide-react";
+import { Globe, Database, Container, Terminal } from "lucide-react";
 
 export function About() {
   return (
     <section
       id="about"
-      className="py-12 md:py-24 border-b border-outline-variant/50 relative overflow-hidden"
+      className="py-12 md:py-20 border-b border-[var(--color-border)] relative"
       aria-labelledby="about-heading"
     >
-      {/* 3D Background Orbs */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-tertiary/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto px-4 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <AnimatedSection>
-          <SectionHeader title="About Me" id="about-heading" align="center" />
+          <SectionHeader title="About Me" id="about-heading" align="left" />
         </AnimatedSection>
 
-        <div className="mt-8 md:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 items-stretch">
-          <AnimatedSection delay={0.2} className="h-full">
-            <Tilt3D tiltMaxAngleX={5} tiltMaxAngleY={5} depth={30} className="h-full">
-              <div className="h-full font-body text-base md:text-lg text-on-surface-variant space-y-4 md:space-y-6 bg-[var(--bg-1)] backdrop-blur-md p-6 md:p-14 rounded-3xl md:rounded-[2.5rem] border border-[var(--b1)] shadow-xl relative overflow-hidden group">
-                <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                
-                <h3 className="font-headline text-2xl font-bold text-on-surface mb-6 group-hover:text-primary transition-colors duration-500 relative z-10">
-                  Who am I?
-                </h3>
-                
-                {personal.about.map((paragraph, i) => (
-                  <p key={i} className="leading-relaxed relative z-10">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </Tilt3D>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+          {/* Main Bio - Left 7 columns */}
+          <AnimatedSection delay={0.1} className="lg:col-span-7 space-y-4 font-body text-base text-[var(--color-ink-2)] leading-relaxed">
+            <h3 className="font-headline text-xl font-bold text-[var(--color-ink)] mb-2">
+              Driven Full-Stack Engineer & Problem Solver
+            </h3>
+
+            {personal.about.map((paragraph, i) => (
+              <p key={i}>
+                {paragraph}
+              </p>
+            ))}
+
+            <div className="pt-4 border-t border-[var(--color-border)] flex flex-wrap gap-4 text-xs font-code text-[var(--color-ink-3)]">
+              <span className="flex items-center gap-1.5"><Globe className="w-3.5 h-3.5 text-[var(--color-accent)]" /> MERN & FastAPI</span>
+              <span className="flex items-center gap-1.5"><Container className="w-3.5 h-3.5 text-[var(--color-accent)]" /> Docker & Linux</span>
+              <span className="flex items-center gap-1.5"><Database className="w-3.5 h-3.5 text-[var(--color-accent)]" /> PostgreSQL & MongoDB</span>
+            </div>
           </AnimatedSection>
 
-          <AnimatedSection delay={0.3} className="h-full">
-            <div className="grid grid-cols-2 gap-6 h-full">
-              {[
-                { icon: Code2, title: "Frontend", desc: "React, Next.js, JS", color: "text-primary", bg: "bg-primary/10", border: "hover:border-primary/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.15)]" },
-                { icon: Database, title: "Backend", desc: "Python, MySQL", color: "text-tertiary", bg: "bg-tertiary/10", border: "hover:border-tertiary/50 hover:shadow-[0_0_30px_rgba(45,212,191,0.15)]" },
-                { icon: Terminal, title: "Core", desc: "C++, DSA, OOP", color: "text-secondary", bg: "bg-secondary/10", border: "hover:border-secondary/50 hover:shadow-[0_0_30px_rgba(167,139,250,0.15)]" },
-                { icon: Layers, title: "Tools", desc: "Git, Docker, Figma", color: "text-primary", bg: "bg-primary/10", border: "hover:border-primary/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.15)]" },
-              ].map((item, i) => (
-                <Tilt3D key={i} tiltMaxAngleX={15} tiltMaxAngleY={15} scale={1.05} depth={20} className="h-full">
-                  <div className={`h-full glass dark:bg-zinc-900/40 p-6 md:p-8 rounded-4xl border border-outline-variant/30 flex flex-col items-center justify-center text-center group transition-all duration-500 ${item.border}`}>
-                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-2 ${item.bg} ${item.color}`}>
-                      <item.icon className="w-8 h-8 drop-shadow-sm" />
+          {/* Core Areas - Right 5 columns */}
+          <AnimatedSection delay={0.2} className="lg:col-span-5">
+            <div className="bg-[var(--color-bg-1)] border border-[var(--color-border)] rounded-xl p-6 space-y-4">
+              <h4 className="font-headline text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-3)]">
+                Core Specialization
+              </h4>
+
+              <div className="space-y-3 font-body">
+                {[
+                  { icon: Globe, title: "Frontend Engineering", desc: "React, TypeScript, Tailwind CSS, Next.js" },
+                  { icon: Database, title: "Backend Development", desc: "FastAPI, Node.js, Express.js, REST APIs" },
+                  { icon: Container, title: "Database & DevOps", desc: "PostgreSQL, MongoDB, Docker, Git" },
+                  { icon: Terminal, title: "CS Fundamentals", desc: "DSA, Object-Oriented Programming, OS, DBMS" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-[var(--color-bg-2)] transition-colors">
+                    <item.icon className="w-4 h-4 text-[var(--color-accent)] shrink-0 mt-0.5" />
+                    <div>
+                      <h5 className="text-sm font-semibold text-[var(--color-ink)]">{item.title}</h5>
+                      <p className="text-xs text-[var(--color-ink-2)]">{item.desc}</p>
                     </div>
-                    <h4 className="font-headline font-bold text-on-surface mb-2 relative z-10">{item.title}</h4>
-                    <p className="text-sm font-medium text-on-surface-variant/70 relative z-10">{item.desc}</p>
                   </div>
-                </Tilt3D>
-              ))}
+                ))}
+              </div>
             </div>
           </AnimatedSection>
         </div>

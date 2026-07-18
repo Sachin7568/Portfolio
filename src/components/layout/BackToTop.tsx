@@ -24,14 +24,15 @@ export function BackToTop() {
     <AnimatePresence>
       {show && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          transition={{ duration: 0.15, ease: "easeOut" }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-primary text-on-primary shadow-lg hover:shadow-xl hover:bg-primary-container hover:-translate-y-1 transition-all duration-300"
+          className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-[var(--color-bg-1)] border border-[var(--color-border)] text-[var(--color-ink)] hover:border-[var(--color-border-active)] hover:text-[var(--color-accent)] active:scale-95 transition-all shadow-lg"
           aria-label="Scroll to top"
         >
-          <ArrowUp className="w-5 h-5" />
+          <ArrowUp className="w-4 h-4" />
         </motion.button>
       )}
     </AnimatePresence>

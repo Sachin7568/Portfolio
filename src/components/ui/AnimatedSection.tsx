@@ -11,10 +11,10 @@ interface AnimatedSectionProps {
 }
 
 const directionVariants = {
-  up: { y: 40, x: 0 },
-  down: { y: -40, x: 0 },
-  left: { x: 40, y: 0 },
-  right: { x: -40, y: 0 },
+  up: { y: 16, x: 0 },
+  down: { y: -16, x: 0 },
+  left: { x: 16, y: 0 },
+  right: { x: -16, y: 0 },
 };
 
 export function AnimatedSection({
@@ -29,11 +29,11 @@ export function AnimatedSection({
     <motion.div
       initial={{ opacity: 0, ...initial }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: "-20px" }}
       transition={{
-        duration: 0.7,
+        duration: 0.35,
         delay,
-        ease: [0.21, 0.47, 0.32, 0.98] as [number, number, number, number],
+        ease: [0.16, 1, 0.3, 1] as const,
       }}
       className={className}
     >
