@@ -6,34 +6,33 @@
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.x-ff69b4?logo=framer&logoColor=white)](https://www.framer.com/motion/)
 [![Vercel Optimized](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel&logoColor=white)](https://vercel.com/)
 
-A modern, high-performance, and responsive single-page developer portfolio website built using **Next.js 16**, **TypeScript**, and **Tailwind CSS v4**.
+A responsive single-page developer portfolio built with **Next.js 16**, **TypeScript**, and **Tailwind CSS v4**. Every route is statically prerendered.
 
-Designed to showcase academic milestones, key technical capabilities, certs, and software engineering projects with smooth animations and layout transitions.
-
-⭐ **Live Preview**: `portfolio-orpin-psi-13.vercel.app` (Or run locally!)
+⭐ **Live**: [portfolio-orpin-psi-13.vercel.app](https://portfolio-orpin-psi-13.vercel.app)
 
 ---
 
-## 🛠️ Tech Stack & Key Technologies
+## 🛠️ Tech Stack
 
-*   **Framework**: Next.js 16 (App Router, Turbopack) for server-side optimization and static page generation.
-*   **Language**: TypeScript with strict types to ensure robust code quality.
-*   **Styling (CSS)**: Tailwind CSS v4, customized with **50+ custom Material Design 3 tokens** (primary/secondary surfaces, dimming, and outline systems).
-*   **Animations**: Framer Motion for scroll-triggered entrance revealing and seamless layout transitions.
-*   **Theme Integration**: `next-themes` for manual and system-synced light/dark mode persistence.
-*   **Icons**: Lucide React + custom handcrafted SVG brand icons for GitHub and LinkedIn (v1-compatible).
+*   **Framework**: Next.js 16 (App Router, Turbopack), fully static output.
+*   **Language**: TypeScript, strict mode.
+*   **Styling**: Tailwind CSS v4 with an OKLCH design-token palette and a small component layer (`.card`, `.btn`, `.pill`, `.tag`, `.field`) so the visual identity lives in one file.
+*   **Animation**: Framer Motion for scroll-triggered reveals, wrapped in `MotionConfig reducedMotion="user"`.
+*   **Theming**: `next-themes` for persisted light/dark mode.
+*   **Icons**: Lucide React, plus hand-written SVG brand marks for GitHub and LinkedIn.
+*   **Contact**: [Web3Forms](https://web3forms.com) — no backend to run.
 
 ---
 
-## ✨ Features & Micro-Interactions
+## ✨ Features
 
-*   **📱 Mobile-First Responsive Design**: Fluid layout optimized down to 320px screens. Uses a custom slide-in drawer menu with backdrop-blur overlays.
-*   **🎭 Smooth Active Section Navigation**: Sticky navbar with scroll position tracking via `IntersectionObserver` to highlight the active page section linearly.
-*   **✨ Availablity Badge**: Features a pinging interactive badge in the hero section displaying availability.
-*   **📊 Technical Arsenal (Skills)**: Staggered entrance technical category bars with custom level tracking and CSS tags.
-*   **🎓 Timeline Milestone Grid**: A chronological roadmap of projects with non-distorting flexible nodes.
-*   **🔍 Compact Capsule Focus Search**: A minimalist search box in front of category filter tags. Collapses to a small circle when idle and expands smoothly to `w-48` on focus, with **zero border outlines/highlights** (only the caret blinking).
-*   **📨 Serverless Contact Form**: Fully verified contact form with Formspree integration, complete inline client-side validation, and instant loading/success alerts.
+*   **Mobile-first responsive layout** down to 320px, with a slide-in drawer nav behind a backdrop blur.
+*   **Active section tracking** via `IntersectionObserver`, marking the current section in the navbar.
+*   **Native smooth scrolling.** Anchor links are plain `<a href="#id">` — CSS `scroll-behavior` handles the motion, so navigation updates the URL hash, is deep-linkable, and works without JavaScript.
+*   **Zero-JS reading progress bar**, driven by a CSS `animation-timeline: scroll()` rather than a scroll listener, so scrolling triggers no React re-renders.
+*   **Working contact form** — client-side validation, honeypot spam guard, live sending/sent/failed states, and a `mailto:` fallback when no Web3Forms key is configured.
+*   **Accessibility**: skip link, visible focus rings on every interactive element, labelled and `aria-describedby`-linked form fields, and full `prefers-reduced-motion` support in both CSS and Framer Motion.
+*   **SEO**: one canonical `SITE_URL` feeding metadata, Open Graph, JSON-LD (`schema.org/Person`), `sitemap.xml`, and `robots.txt`.
 
 ---
 
@@ -41,31 +40,34 @@ Designed to showcase academic milestones, key technical capabilities, certs, and
 
 ```text
 portfolio-app/
-├── public/                  # Static assets (robots.txt, og-image.png)
 ├── src/
 │   ├── app/
-│   │   ├── globals.css      # Core styles, variables, dark overrides
-│   │   ├── layout.tsx       # Metadata, structure, provider wraps
-│   │   ├── page.tsx         # Main portfolio assembly page
-│   │   └── sitemap.ts       # Dynamic sitemap generator
+│   │   ├── globals.css      # Design tokens, component layer, hero backdrop
+│   │   ├── layout.tsx       # Metadata, JSON-LD, providers
+│   │   ├── page.tsx         # Section assembly
+│   │   ├── robots.ts        # Generated robots.txt
+│   │   └── sitemap.ts       # Generated sitemap.xml
 │   ├── components/
-│   │   ├── layout/          # Navbar, Footer, ScrollProgress, BackToTop
-│   │   ├── sections/        # Hero, About, Education, Skills, Certs, Projects, Contact
-│   │   ├── ui/              # SectionHeader, AnimatedSection, SVG Icons
+│   │   ├── layout/          # Navbar, MobileNav, Footer, ScrollProgress, BackToTop
+│   │   ├── sections/        # Hero, About, Education, Skills, Certifications, Projects, Contact
+│   │   ├── ui/              # SectionHeader, AnimatedSection, Icons, ThemeToggle
 │   │   └── providers/       # ThemeProvider
-│   ├── data/                # personal.ts, projects.ts, skills.ts, etc.
-│   ├── hooks/               # useActiveSection, useScrollProgress
-│   └── lib/                 # Tailwind utility classes helper
+│   ├── data/                # personal.ts, projects.ts, skills.ts, education.ts, certifications.ts
+│   ├── hooks/               # useActiveSection
+│   └── lib/                 # contact.ts (+ tests), utils.ts
+├── .env.example
 ├── package.json
 └── tsconfig.json
 ```
+
+Content lives in `src/data/` — editing a project or a skill never means touching a component.
 
 ---
 
 ## 🚀 Getting Started
 
-### 📋 Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed (version 18 or above recommended).
+### Prerequisites
+[Node.js](https://nodejs.org/) 20 or newer. `npm test` additionally needs 22.18+, since it runs TypeScript through Node's native type stripping.
 
 ### 1. Clone & Navigate
 ```bash
@@ -78,25 +80,31 @@ cd Portfolio/portfolio-app
 npm install
 ```
 
-### 3. Run Development Server
+### 3. Configure Environment
 ```bash
-npm run dev
+cp .env.example .env.local
 ```
-Open [http://localhost:3000](http://localhost:3000) in your web browser to view the application in action.
 
-### 4. Create Production Build
-To build and verify the optimized version of the website:
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_WEB3FORMS_KEY` | Web3Forms access key. Without it the contact form falls back to opening the visitor's mail client. Public by design — it appears in the page markup either way. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata, JSON-LD, sitemap, and robots. Defaults to `https://sachin.dev`. |
+
+Set both in your Vercel project settings too — a local `.env.local` does not reach the deployment.
+
+### 4. Run
 ```bash
-npm run build
+npm run dev      # http://localhost:3000
+npm test         # contact validation + payload encoding
+npm run lint
+npm run build    # static production build
 npm run start
 ```
 
 ---
 
-## 🌎 Contact & Connect
-
-Feel free to reach out to connect, collaborate, or explore opportunities!
+## 🌎 Contact
 
 *   **LinkedIn**: [linkedin.com/in/sachin-kumar-103762218](https://www.linkedin.com/in/sachin-kumar-103762218)
 *   **GitHub**: [github.com/Sachin7568](https://github.com/Sachin7568)
-*   **Gmail**: [sachinvr10094@gmail.com](mailto:sachinvr10094@gmail.com)
+*   **Email**: [sachinportfoliowebdev@gmail.com](mailto:sachinportfoliowebdev@gmail.com)

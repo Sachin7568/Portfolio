@@ -1,8 +1,13 @@
+// Single source of truth for the canonical URL: metadata, JSON-LD, sitemap and
+// robots all read this. Set NEXT_PUBLIC_SITE_URL in the host to override.
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sachin.dev";
+
 export const personal = {
   name: "Sachin",
   role: "Full-Stack Software Engineer & CS Graduate",
   location: "Haryana, India",
-  email: "Sachinvr10094@gmail.com",
+  email: "sachinportfoliowebdev@gmail.com",
   phone: "+91-7568330645",
   tagline: "Building responsive, data-driven web applications & scalable software solutions.",
   objective:
@@ -14,8 +19,7 @@ export const personal = {
   social: {
     github: "https://github.com/Sachin7568",
     linkedin: "https://www.linkedin.com/in/sachin-kumar-103762218/",
-    email: "mailto:Sachinvr10094@gmail.com",
+    email: "mailto:sachinportfoliowebdev@gmail.com",
     phone: "tel:+917568330645",
   },
-  resumeUrl: "/resume.pdf",
 } as const;

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { BackToTop } from "@/components/layout/BackToTop";
+import { SITE_URL } from "@/data/personal";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -34,11 +35,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Sachin" }],
   creator: "Sachin",
-  metadataBase: new URL("https://sachin.dev"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://sachin.dev",
+    url: SITE_URL,
     title: "Sachin | Computer Science Engineer & Software Developer",
     description:
       "Portfolio of Sachin, CSE graduate specializing in React, TypeScript, Python, and Modern Web Development.",
@@ -56,6 +57,38 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Sachin",
+  jobTitle: "Computer Science Engineer",
+  description:
+    "Computer Science Engineering graduate specializing in React, TypeScript, Python, and Modern Web Development.",
+  url: SITE_URL,
+  sameAs: [
+    "https://github.com/Sachin7568",
+    "https://www.linkedin.com/in/sachin-kumar-103762218/",
+  ],
+  knowsAbout: [
+    "React",
+    "TypeScript",
+    "Python",
+    "FastAPI",
+    "Docker",
+    "PostgreSQL",
+    "MongoDB",
+  ],
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "Chandigarh University",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressRegion: "Haryana",
+    addressCountry: "IN",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -68,45 +101,14 @@ export default function RootLayout({
       style={{ colorScheme: "dark" }}
       suppressHydrationWarning
     >
-      <head>
+      <body className="bg-bg-0 text-ink font-body antialiased selection:bg-accent-wash selection:text-accent">
+        {/* Next 16 wants JSON-LD in the body, not a hand-written <head>. */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Sachin",
-              jobTitle: "Computer Science Engineer",
-              description:
-                "Computer Science Engineering graduate specializing in React, TypeScript, Python, and Modern Web Development.",
-              url: "https://sachin.dev",
-              sameAs: [
-                "https://github.com/Sachin7568",
-                "https://www.linkedin.com/in/sachin-kumar-103762218/",
-              ],
-              knowsAbout: [
-                "React",
-                "TypeScript",
-                "Python",
-                "FastAPI",
-                "Docker",
-                "PostgreSQL",
-                "MongoDB",
-              ],
-              alumniOf: {
-                "@type": "EducationalOrganization",
-                name: "Chandigarh University",
-              },
-              address: {
-                "@type": "PostalAddress",
-                addressRegion: "Haryana",
-                addressCountry: "IN",
-              },
-            }),
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
-      </head>
-      <body className="bg-bg-0 text-ink font-body antialiased selection:bg-accent-wash selection:text-accent">
         <ThemeProvider>
           <a href="#main-content" className="skip-to-content">
             Skip to main content

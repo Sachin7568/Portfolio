@@ -16,14 +16,14 @@ export function Education() {
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <AnimatedSection>
-          <SectionHeader title="Education" id="education-heading" align="left" />
+          <SectionHeader title="Education" id="education-heading" />
         </AnimatedSection>
 
         <AnimatedSection delay={0.1}>
-          <div className="bg-[var(--color-bg-1)] border border-[var(--color-border)] rounded-xl p-6 sm:p-8">
+          <div className="card p-6 sm:p-8">
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[var(--color-bg-2)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent)] shrink-0">
+                <div className="icon-tile w-11 h-11">
                   <GraduationCap className="w-5 h-5" />
                 </div>
 
@@ -49,11 +49,11 @@ export function Education() {
               </div>
 
               {/* Score Badge */}
-              <div className="bg-[var(--color-bg-2)] border border-[var(--color-border)] rounded-lg px-4 py-3 text-center shrink-0 md:min-w-[130px]">
+              <div className="bg-[var(--color-bg-2)] border border-[var(--color-border-active)] rounded-lg px-5 py-3 text-center shrink-0 md:min-w-[130px]">
                 <span className="block text-[11px] font-code uppercase text-[var(--color-ink-3)] tracking-wider">
                   CGPA
                 </span>
-                <span className="font-headline text-xl sm:text-2xl font-bold text-[var(--color-ink)]">
+                <span className="font-headline text-2xl sm:text-3xl font-bold text-gradient">
                   {edu.gradeValue}
                 </span>
               </div>

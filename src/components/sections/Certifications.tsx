@@ -34,7 +34,7 @@ export function Certifications() {
           <SectionHeader
             title="Certifications & Specializations"
             id="certifications-heading"
-            align="left"
+           
           />
         </AnimatedSection>
 
@@ -57,10 +57,12 @@ export function Certifications() {
               <AnimatedSection key={cert.id} delay={index * 0.05}>
                 <CardWrapper
                   {...wrapperProps}
-                  className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:px-6 sm:py-4 rounded-xl bg-[var(--color-bg-1)] border border-[var(--color-border)] hover:border-[var(--color-border-active)] transition-colors cursor-pointer"
+                  className={`card ${
+                    isClickable ? "card-hover" : ""
+                  } group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:px-6 sm:py-4`}
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="w-9 h-9 rounded-lg bg-[var(--color-bg-2)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent)] shrink-0">
+                    <div className="icon-tile w-9 h-9">
                       <IconComponent className="w-4 h-4" />
                     </div>
 

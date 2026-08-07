@@ -37,20 +37,9 @@ export function MobileNav() {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [close]);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    close();
-    setTimeout(() => {
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 200);
-  };
-
   return (
     <>
-      <div className="md:hidden flex justify-between items-center px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-bg-0)] sticky top-0 z-40">
+      <div className="md:hidden flex justify-between items-center px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-bg-0)]/85 backdrop-blur-xl sticky top-0 z-40">
         <span className="font-headline text-lg font-bold text-[var(--color-ink)]">
           Sachin<span className="text-[var(--color-accent)]">.dev</span>
         </span>
@@ -110,7 +99,7 @@ export function MobileNav() {
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={(e) => handleLinkClick(e, link.href)}
+                    onClick={close}
                     className="flex items-center gap-3 text-[var(--color-ink-2)] hover:text-[var(--color-accent)] hover:bg-[var(--color-bg-2)] px-6 py-4 font-body text-sm font-medium transition-colors"
                   >
                     <link.icon className="w-4 h-4" />

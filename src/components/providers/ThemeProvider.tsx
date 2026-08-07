@@ -1,18 +1,8 @@
 "use client";
 
-import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { MotionConfig } from "framer-motion";
 import { type ReactNode } from "react";
-
-if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
-  const orig = console.error;
-  console.error = (...args: unknown[]) => {
-    if (typeof args[0] === "string" && args[0].includes("Encountered a script tag")) {
-      return;
-    }
-    orig.apply(console, args);
-  };
-}
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
@@ -23,7 +13,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       disableTransitionOnChange={true}
       storageKey="portfolio-theme"
     >
-      {children}
+      {/* Honours prefers-reduced-motion for every framer-motion animation.
+          CSS animations are handled by the media query in globals.css. */}
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
     </NextThemesProvider>
   );
 }

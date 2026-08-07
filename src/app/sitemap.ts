@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/data/personal";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://sachin.dev",
+      url: SITE_URL,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

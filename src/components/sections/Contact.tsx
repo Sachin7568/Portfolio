@@ -4,43 +4,101 @@ import { useState } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { personal } from "@/data/personal";
-import { Mail, Phone, MapPin, Send, CheckCircle, Loader2 } from "lucide-react";
+import {
+  validateContact,
+  sendContact,
+  mailtoUrl,
+  WEB3FORMS_KEY,
+} from "@/lib/contact";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle,
+  Loader2,
+  AlertCircle,
+} from "lucide-react";
 import { Github, Linkedin } from "@/components/ui/Icons";
 
+const empty = { name: "", email: "", subject: "", message: "" };
+
+function Field({
+  id,
+  label,
+  error,
+  children,
+}: {
+  id: string;
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="block text-xs font-semibold text-[var(--color-ink-2)] mb-1.5"
+      >
+        {label} <span className="text-[var(--color-accent)]">*</span>
+      </label>
+      {children}
+      {error && (
+        <span
+          id={`${id}-error`}
+          className="text-xs text-red-400 mt-1.5 flex items-center gap-1"
+        >
+          <AlertCircle className="w-3 h-3 shrink-0" />
+          {error}
+        </span>
+      )}
+    </div>
+  );
+}
+
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
+  const [formData, setFormData] = useState(empty);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">(
+    "idle"
+  );
+  const [failure, setFailure] = useState("");
 
-  const validate = () => {
-    const newErrors: Record<string, string> = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
-    if (!formData.subject.trim()) newErrors.subject = "Subject is required";
-    if (!formData.message.trim()) newErrors.message = "Message is required";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const update = (field: keyof typeof empty, value: string) => {
+    setFormData((current) => ({ ...current, [field]: value }));
+    // Clear the error the moment the visitor starts fixing that field.
+    setErrors((current) => {
+      if (!current[field]) return current;
+      const next = { ...current };
+      delete next[field];
+      return next;
+    });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-    setStatus("submitting");
 
-    setTimeout(() => {
-      setStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 1000);
+    const found = validateContact(formData);
+    setErrors(found);
+    if (Object.keys(found).length > 0) return;
+
+    // Without a configured key there is no backend to post to, so hand the
+    // message to the visitor's mail client rather than pretend to deliver it.
+    if (!WEB3FORMS_KEY) {
+      window.location.href = mailtoUrl(personal.social.email, formData);
+      setStatus("sent");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      await sendContact(formData, WEB3FORMS_KEY);
+      setFormData(empty);
+      setStatus("sent");
+    } catch (error) {
+      setFailure(error instanceof Error ? error.message : "Something broke");
+      setStatus("failed");
+    }
   };
 
   return (
@@ -51,23 +109,24 @@ export function Contact() {
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <AnimatedSection>
-          <SectionHeader title="Get In Touch" id="contact-heading" align="left" />
+          <SectionHeader title="Get In Touch" id="contact-heading" />
         </AnimatedSection>
 
         <AnimatedSection delay={0.1}>
-          <div className="bg-[var(--color-bg-1)] rounded-xl border border-[var(--color-border)] overflow-hidden">
+          <div className="card">
             <div className="grid grid-cols-1 lg:grid-cols-5">
-              {/* Left Side: Contact Details */}
+              {/* Left: how to reach me directly */}
               <div className="lg:col-span-2 p-6 sm:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[var(--color-border)] bg-[var(--color-bg-0)]">
                 <div>
                   <h3 className="font-headline text-xl font-bold text-[var(--color-ink)] mb-2">
                     Let&apos;s build something together.
                   </h3>
-                  <p className="font-body text-xs sm:text-sm text-[var(--color-ink-2)] mb-6 leading-relaxed">
-                    Interested in full-stack engineering, web development, or technical collaboration? Feel free to reach out.
+                  <p className="font-body text-sm text-[var(--color-ink-2)] mb-6 leading-relaxed">
+                    Open to full-stack roles, freelance work, and technical
+                    collaboration. I read every message.
                   </p>
 
-                  <div className="space-y-3 font-code text-xs">
+                  <div className="space-y-2.5 font-code text-xs">
                     <a
                       href={personal.social.email}
                       className="flex items-center gap-3 p-3 rounded-lg bg-[var(--color-bg-1)] border border-[var(--color-border)] text-[var(--color-ink)] hover:border-[var(--color-border-active)] hover:text-[var(--color-accent)] transition-colors"
@@ -91,7 +150,6 @@ export function Contact() {
                   </div>
                 </div>
 
-                {/* Profiles */}
                 <div className="pt-6 mt-6 border-t border-[var(--color-border)]">
                   <span className="block font-code text-xs text-[var(--color-ink-3)] uppercase tracking-wider mb-2.5">
                     Connect
@@ -101,8 +159,8 @@ export function Contact() {
                       href={personal.social.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 rounded-lg bg-[var(--color-bg-1)] border border-[var(--color-border)] text-[var(--color-ink-2)] hover:text-[var(--color-accent)] hover:border-[var(--color-border-active)] transition-colors"
-                      aria-label="GitHub Profile"
+                      className="icon-btn"
+                      aria-label="GitHub profile"
                     >
                       <Github className="w-4 h-4" />
                     </a>
@@ -110,8 +168,8 @@ export function Contact() {
                       href={personal.social.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 rounded-lg bg-[var(--color-bg-1)] border border-[var(--color-border)] text-[var(--color-ink-2)] hover:text-[var(--color-accent)] hover:border-[var(--color-border-active)] transition-colors"
-                      aria-label="LinkedIn Profile"
+                      className="icon-btn"
+                      aria-label="LinkedIn profile"
                     >
                       <Linkedin className="w-4 h-4" />
                     </a>
@@ -119,89 +177,132 @@ export function Contact() {
                 </div>
               </div>
 
-              {/* Right Side: Form */}
+              {/* Right: the form */}
               <div className="lg:col-span-3 p-6 sm:p-8">
-                {status === "success" ? (
-                  <div className="text-center py-10">
+                {status === "sent" ? (
+                  <div className="text-center py-10" role="status">
                     <div className="w-12 h-12 bg-[var(--color-accent-wash)] rounded-full flex items-center justify-center mx-auto mb-3 text-[var(--color-accent)]">
                       <CheckCircle className="w-6 h-6" />
                     </div>
                     <h3 className="font-headline text-lg font-bold text-[var(--color-ink)] mb-1">
-                      Message Sent
+                      {WEB3FORMS_KEY
+                        ? "Message sent"
+                        : "Your email app should be open"}
                     </h3>
-                    <p className="text-[var(--color-ink-2)] text-xs">
-                      Thank you for reaching out. I will respond promptly.
+                    <p className="text-[var(--color-ink-2)] text-sm">
+                      {WEB3FORMS_KEY ? (
+                        "Thanks for reaching out — I'll reply soon."
+                      ) : (
+                        <>
+                          Hit send there and it reaches me. Nothing came up?
+                          Write to{" "}
+                          <a
+                            href={personal.social.email}
+                            className="text-[var(--color-accent)] underline"
+                          >
+                            {personal.email}
+                          </a>
+                          .
+                        </>
+                      )}
                     </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} noValidate className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-[var(--color-ink-2)] mb-1">
-                          Name *
-                        </label>
+                      <Field id="name" label="Name" error={errors.name}>
                         <input
+                          id="name"
+                          name="name"
                           type="text"
+                          autoComplete="name"
+                          aria-invalid={Boolean(errors.name)}
+                          aria-describedby={errors.name ? "name-error" : undefined}
                           value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          onChange={(e) => update("name", e.target.value)}
                           placeholder="Your name"
-                          className="w-full px-3.5 py-2 rounded-lg bg-[var(--color-bg-0)] border border-[var(--color-border)] text-[var(--color-ink)] text-sm placeholder-[var(--color-ink-3)] focus:outline-none focus:border-[var(--color-border-active)] transition-colors"
+                          className="field"
                         />
-                        {errors.name && <span className="text-xs text-red-400 mt-1 block">{errors.name}</span>}
-                      </div>
+                      </Field>
 
-                      <div>
-                        <label className="block text-xs font-semibold text-[var(--color-ink-2)] mb-1">
-                          Email *
-                        </label>
+                      <Field id="email" label="Email" error={errors.email}>
                         <input
+                          id="email"
+                          name="email"
                           type="email"
+                          autoComplete="email"
+                          aria-invalid={Boolean(errors.email)}
+                          aria-describedby={
+                            errors.email ? "email-error" : undefined
+                          }
                           value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          onChange={(e) => update("email", e.target.value)}
                           placeholder="your.email@example.com"
-                          className="w-full px-3.5 py-2 rounded-lg bg-[var(--color-bg-0)] border border-[var(--color-border)] text-[var(--color-ink)] text-sm placeholder-[var(--color-ink-3)] focus:outline-none focus:border-[var(--color-border-active)] transition-colors"
+                          className="field"
                         />
-                        {errors.email && <span className="text-xs text-red-400 mt-1 block">{errors.email}</span>}
-                      </div>
+                      </Field>
                     </div>
 
-                    <div>
-                      <label className="block text-xs font-semibold text-[var(--color-ink-2)] mb-1">
-                        Subject *
-                      </label>
+                    <Field id="subject" label="Subject" error={errors.subject}>
                       <input
+                        id="subject"
+                        name="subject"
                         type="text"
+                        aria-invalid={Boolean(errors.subject)}
+                        aria-describedby={
+                          errors.subject ? "subject-error" : undefined
+                        }
                         value={formData.subject}
-                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                        placeholder="Inquiry or Project Discussion"
-                        className="w-full px-3.5 py-2 rounded-lg bg-[var(--color-bg-0)] border border-[var(--color-border)] text-[var(--color-ink)] text-sm placeholder-[var(--color-ink-3)] focus:outline-none focus:border-[var(--color-border-active)] transition-colors"
+                        onChange={(e) => update("subject", e.target.value)}
+                        placeholder="Role, project, or collaboration"
+                        className="field"
                       />
-                      {errors.subject && <span className="text-xs text-red-400 mt-1 block">{errors.subject}</span>}
-                    </div>
+                    </Field>
 
-                    <div>
-                      <label className="block text-xs font-semibold text-[var(--color-ink-2)] mb-1">
-                        Message *
-                      </label>
+                    <Field id="message" label="Message" error={errors.message}>
                       <textarea
+                        id="message"
+                        name="message"
                         rows={4}
+                        aria-invalid={Boolean(errors.message)}
+                        aria-describedby={
+                          errors.message ? "message-error" : undefined
+                        }
                         value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Your message details..."
-                        className="w-full px-3.5 py-2 rounded-lg bg-[var(--color-bg-0)] border border-[var(--color-border)] text-[var(--color-ink)] text-sm placeholder-[var(--color-ink-3)] focus:outline-none focus:border-[var(--color-border-active)] transition-colors resize-none"
+                        onChange={(e) => update("message", e.target.value)}
+                        placeholder="What are you working on?"
+                        className="field resize-none"
                       />
-                      {errors.message && <span className="text-xs text-red-400 mt-1 block">{errors.message}</span>}
-                    </div>
+                    </Field>
+
+                    {status === "failed" && (
+                      <p
+                        role="alert"
+                        className="text-xs text-red-400 flex items-start gap-1.5"
+                      >
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-px" />
+                        <span>
+                          Could not send ({failure}). Email me directly at{" "}
+                          <a
+                            href={personal.social.email}
+                            className="underline text-[var(--color-accent)]"
+                          >
+                            {personal.email}
+                          </a>
+                          .
+                        </span>
+                      </p>
+                    )}
 
                     <button
                       type="submit"
-                      disabled={status === "submitting"}
-                      className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--color-accent)] text-[var(--color-bg-0)] font-body text-xs font-semibold hover:bg-[var(--color-accent-dim)] active:scale-95 transition-all disabled:opacity-50 cursor-pointer"
+                      disabled={status === "sending"}
+                      className="btn btn-primary w-full text-xs disabled:opacity-60"
                     >
-                      {status === "submitting" ? (
+                      {status === "sending" ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin" />
-                          Sending...
+                          Sending…
                         </>
                       ) : (
                         <>

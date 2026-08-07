@@ -14,7 +14,7 @@ export function About() {
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <AnimatedSection>
-          <SectionHeader title="About Me" id="about-heading" align="left" />
+          <SectionHeader title="About Me" id="about-heading" />
         </AnimatedSection>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
@@ -30,16 +30,16 @@ export function About() {
               </p>
             ))}
 
-            <div className="pt-4 border-t border-[var(--color-border)] flex flex-wrap gap-4 text-xs font-code text-[var(--color-ink-3)]">
-              <span className="flex items-center gap-1.5"><Globe className="w-3.5 h-3.5 text-[var(--color-accent)]" /> MERN & FastAPI</span>
-              <span className="flex items-center gap-1.5"><Container className="w-3.5 h-3.5 text-[var(--color-accent)]" /> Docker & Linux</span>
-              <span className="flex items-center gap-1.5"><Database className="w-3.5 h-3.5 text-[var(--color-accent)]" /> PostgreSQL & MongoDB</span>
+            <div className="pt-5 border-t border-[var(--color-border)] flex flex-wrap gap-2">
+              <span className="pill"><Globe className="w-3.5 h-3.5 text-[var(--color-accent)]" /> MERN &amp; FastAPI</span>
+              <span className="pill"><Container className="w-3.5 h-3.5 text-[var(--color-accent)]" /> Docker &amp; Linux</span>
+              <span className="pill"><Database className="w-3.5 h-3.5 text-[var(--color-accent)]" /> PostgreSQL &amp; MongoDB</span>
             </div>
           </AnimatedSection>
 
           {/* Core Areas - Right 5 columns */}
           <AnimatedSection delay={0.2} className="lg:col-span-5">
-            <div className="bg-[var(--color-bg-1)] border border-[var(--color-border)] rounded-xl p-6 space-y-4">
+            <div className="card p-6 space-y-4">
               <h4 className="font-headline text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-3)]">
                 Core Specialization
               </h4>

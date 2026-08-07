@@ -4,25 +4,28 @@
 
 /* =============================================
    Design Tokens - OKLCH Color Palette
+   Dark is the default theme; .light overrides below.
    ============================================= */
 
 @theme {
-  --color-bg-0: oklch(0.08 0.01 264);
-  --color-bg-1: oklch(0.12 0.012 264);
-  --color-bg-2: oklch(0.17 0.014 264);
-  --color-bg-3: oklch(0.22 0.016 264);
-  
-  --color-accent: oklch(0.72 0.14 192);
-  --color-accent-dim: oklch(0.55 0.10 192);
-  --color-accent-wash: oklch(0.72 0.14 192 / 0.08);
-  
-  --color-ink: oklch(0.93 0.005 264);
-  --color-ink-2: oklch(0.65 0.02 264);
-  --color-ink-3: oklch(0.42 0.025 264);
-  
-  --color-border: oklch(0.20 0.012 264 / 0.6);
-  --color-border-active: oklch(0.72 0.14 192 / 0.4);
-  
+  --color-bg-0: oklch(0.075 0.006 265);
+  --color-bg-1: oklch(0.13 0.009 265);
+  --color-bg-2: oklch(0.18 0.011 265);
+  --color-bg-3: oklch(0.24 0.013 265);
+
+  --color-accent: oklch(0.789 0.154 211);
+  --color-accent-dim: oklch(0.7 0.14 213);
+  --color-accent-2: oklch(0.707 0.165 255);
+  --color-accent-wash: oklch(0.789 0.154 211 / 0.1);
+  --color-accent-glow: oklch(0.789 0.154 211 / 0.18);
+
+  --color-ink: oklch(0.96 0.003 265);
+  --color-ink-2: oklch(0.72 0.017 265);
+  --color-ink-3: oklch(0.5 0.022 265);
+
+  --color-border: oklch(0.28 0.012 265 / 0.7);
+  --color-border-active: oklch(0.789 0.154 211 / 0.45);
+
   --font-headline: var(--font-geist-sans), sans-serif;
   --font-body: var(--font-geist-sans), sans-serif;
   --font-code: var(--font-geist-mono), monospace;
@@ -30,23 +33,27 @@
 
 /* =============================================
    Light Mode Theme
+   Neutrals carry a trace of warmth so the page reads as paper
+   rather than as an inverted screenshot of the dark theme.
    ============================================= */
 .light {
-  --color-bg-0: oklch(0.985 0 0);
-  --color-bg-1: oklch(0.96 0.004 264);
-  --color-bg-2: oklch(0.92 0.006 264);
-  --color-bg-3: oklch(0.86 0.008 264);
-  
-  --color-accent: oklch(0.52 0.14 192);
-  --color-accent-dim: oklch(0.42 0.12 192);
-  --color-accent-wash: oklch(0.52 0.14 192 / 0.08);
-  
-  --color-ink: oklch(0.12 0.01 264);
-  --color-ink-2: oklch(0.40 0.02 264);
-  --color-ink-3: oklch(0.60 0.015 264);
-  
-  --color-border: oklch(0.85 0.005 264 / 0.8);
-  --color-border-active: oklch(0.52 0.14 192 / 0.5);
+  --color-bg-0: oklch(0.99 0.003 95);
+  --color-bg-1: oklch(0.97 0.004 95);
+  --color-bg-2: oklch(0.94 0.005 95);
+  --color-bg-3: oklch(0.89 0.006 95);
+
+  --color-accent: oklch(0.55 0.13 213);
+  --color-accent-dim: oklch(0.46 0.12 215);
+  --color-accent-2: oklch(0.55 0.19 258);
+  --color-accent-wash: oklch(0.55 0.13 213 / 0.1);
+  --color-accent-glow: oklch(0.55 0.13 213 / 0.14);
+
+  --color-ink: oklch(0.19 0.012 265);
+  --color-ink-2: oklch(0.45 0.018 265);
+  --color-ink-3: oklch(0.62 0.015 265);
+
+  --color-border: oklch(0.86 0.005 95);
+  --color-border-active: oklch(0.55 0.13 213 / 0.5);
 }
 
 /* =============================================
@@ -54,6 +61,11 @@
    ============================================= */
 html {
   scroll-behavior: smooth;
+}
+
+/* Anchor targets clear the fixed navbar / sticky mobile header */
+section[id] {
+  scroll-margin-top: 5rem;
 }
 
 body {
@@ -69,7 +81,9 @@ body {
   color: var(--color-accent);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   text-wrap: balance;
 }
 
@@ -77,13 +91,271 @@ p {
   text-wrap: pretty;
 }
 
-/* Hide scrollbar utility */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
+/* Keyboard focus was invisible before this. Applies to every interactive
+   element, so new markup is accessible by default. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+/* =============================================
+   Components
+   These carry the visual identity. Restyling the whole site means
+   editing here, not hunting the same Tailwind string across 10 files.
+   ============================================= */
+@layer components {
+  /* Raised panel. ::before draws a 1px highlight along the top edge,
+     which is what reads as "lit from above" rather than flat. */
+  .card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background-color: var(--color-bg-1);
+    border: 1px solid var(--color-border);
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-border-active),
+      transparent
+    );
+    opacity: 0.6;
+  }
+
+  .card-hover:hover {
+    border-color: var(--color-border-active);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px -12px var(--color-accent-glow);
+  }
+
+  /* Square icon chip used by education, projects and certifications. */
+  .icon-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    background-color: var(--color-bg-2);
+    border: 1px solid var(--color-border);
+    color: var(--color-accent);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    background-color: var(--color-bg-1);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-code);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-ink-2);
+  }
+
+  .tag {
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.375rem;
+    background-color: var(--color-bg-2);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-code);
+    font-size: 0.75rem;
+    color: var(--color-ink-2);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .tag:hover {
+    border-color: var(--color-border-active);
+    color: var(--color-ink);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-bg-0);
+    box-shadow: 0 4px 20px -6px var(--color-accent-glow);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-dim);
+    border-color: var(--color-accent-dim);
+    box-shadow: 0 6px 26px -6px var(--color-accent-glow);
+  }
+
+  .btn-ghost {
+    background-color: var(--color-bg-1);
+    border-color: var(--color-border);
+    color: var(--color-ink);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-border-active);
+    color: var(--color-accent);
+  }
+
+  /* Small square icon-only link (social rows, project links). */
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-bg-2);
+    border: 1px solid var(--color-border);
+    color: var(--color-ink-2);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .icon-btn:hover {
+    color: var(--color-accent);
+    border-color: var(--color-border-active);
+  }
+
+  .field {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-bg-0);
+    border: 1px solid var(--color-border);
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .field::placeholder {
+    color: var(--color-ink-3);
+  }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--color-border-active);
+    box-shadow: 0 0 0 3px var(--color-accent-wash);
+  }
+
+  .field[aria-invalid="true"] {
+    border-color: oklch(0.65 0.19 25 / 0.7);
+  }
+}
+
+/* =============================================
+   Hero backdrop
+   A dot grid that fades out, plus an accent glow behind the headline.
+   Both are decorative and sit behind the content.
+   ============================================= */
+.hero-backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    var(--color-border) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent);
+  opacity: 0.7;
+}
+
+.hero-backdrop::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  width: min(52rem, 120%);
+  aspect-ratio: 1;
+  translate: -50% 0;
+  background: radial-gradient(
+    circle,
+    var(--color-accent-glow) 0%,
+    transparent 62%
+  );
+}
+
+/* Accent-to-blue wash used on the name and section markers. */
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-accent) 0%,
+    var(--color-accent-2) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Reading-progress bar, driven by the scroll timeline (no JS, no re-renders).
+   ponytail: browsers without scroll-driven animations just show no bar —
+   it is decoration. Revisit only if that support matters. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 60;
+  background: linear-gradient(
+    to right,
+    var(--color-accent),
+    var(--color-accent-2)
+  );
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes scroll-progress {
+  to {
+    transform: scaleX(1);
+  }
 }
 
 /* Accessibility skip link */
@@ -103,4 +375,30 @@ p {
 
 .skip-to-content:focus {
   top: 0;
+}
+
+/* =============================================
+   Reduced Motion
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .card-hover:hover {
+    transform: none;
+  }
+
+  .scroll-progress {
+    display: none;
+  }
 }

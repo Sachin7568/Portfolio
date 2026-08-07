@@ -28,14 +28,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <motion.nav 
       initial={{ y: -80, opacity: 0 }}
@@ -48,16 +40,12 @@ export function Navbar() {
     >
       <div className={cn(
         "mx-auto transition-all duration-300 flex justify-between items-center pointer-events-auto",
-        isScrolled 
-          ? "max-w-3xl bg-[var(--color-bg-1)] border border-[var(--color-border)] rounded-full px-6 py-2.5 shadow-lg shadow-black/10" 
+        isScrolled
+          ? "max-w-3xl bg-[var(--color-bg-1)]/80 backdrop-blur-xl border border-[var(--color-border)] rounded-full px-6 py-2.5 shadow-lg shadow-black/20"
           : "max-w-5xl px-6 py-2"
       )}>
         <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+          href="#hero"
           className="font-headline text-lg font-bold text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors tracking-tight"
         >
           Sachin<span className="text-[var(--color-accent)]">.dev</span>
@@ -70,7 +58,7 @@ export function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={(e) => handleClick(e, link.href)}
+                aria-current={isActive ? "true" : undefined}
                 className={cn(
                   "font-body text-xs font-semibold tracking-wider transition-colors relative py-1",
                   isActive
